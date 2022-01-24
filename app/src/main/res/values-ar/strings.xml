@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">sellingVegetables</string>
+    <string name="field_required">field required</string>
+    <string name="login">Login</string>
+    <string name="username">userName</string>
+</resources>
