@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">sellingVegetables</string>
-    <string name="field_required">field required</string>
-    <string name="login">Login</string>
-    <string name="username">userName</string>
-    <string name="chooseLanguage">choose Language</string>
-    <string name="password">Password</string>
-    <string name="rememberme">Remember me</string>
-    <string name="sales_invoices">sales invoices</string>
-    <string name="return_invoices">Return invoices</string>
-    <string name="discout">Discout</string>
-    <string name="item">Item</string>
-    <string name="amount">Amount</string>
-    <string name="price">Price</string>
-    <string name="total">Total</string>
-    <string name="total_befor_tax">Total Befor Tax :</string>
-    <string name="total_after_tax">Total After Tax :</string>
-    <string name="total_before_discount">Total Before Discount :</string>
-    <string name="total_after_discount">Total After Discount :</string>
-    <string name="total1">Total :</string>
-    <string name="save">Save</string>
+    <string name="app_name">بيع الخضار</string>
+    <string name="field_required">حقل مطلوب</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="username">اسم االمستخدم</string>
+    <string name="chooseLanguage">اختر اللغة</string>
+    <string name="password">كلمة المرور</string>
+    <string name="rememberme">تذكرنى</string>
+    <string name="sales_invoices">فواتير المبيعات</string>
+    <string name="return_invoices">إرجاع الفواتير</string>
+    <string name="discout">خصم</string>
+    <string name="item">العنصر</string>
+    <string name="amount">الكمية</string>
+    <string name="price">المبلغ</string>
+    <string name="total">الإجمالي</string>
+    <string name="total_befor_tax">الإجمالي دون الضريبة :</string>
+    <string name="total_after_tax">الإجمالي بعد الضريبة:</string>
+    <string name="total_before_discount">الإجمالي قبل الخصم:</string>
+    <string name="total_after_discount">الإجمالي بعد الخصم:</string>
+    <string name="total1">الإجمالي</string>
+    <string name="save">حفظ</string>
+    <string name="add">إضافة</string>
     <string-array name="langs">
 
-        <item>English</item>
-        <item>Arabic</item>
+        <item>الإنجليزية</item>
+        <item>العربية</item>
     </string-array>
 
     <string-array name="customer">
 
-        <item>customer1</item>
-        <item>customer2</item>
+        <item>العميل 1</item>
+        <item>العميل 2</item>
     </string-array>
 </resources>

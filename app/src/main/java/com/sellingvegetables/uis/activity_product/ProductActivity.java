@@ -6,14 +6,20 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 
 import com.sellingvegetables.R;
 import com.sellingvegetables.adapter.ProductAdapter;
 import com.sellingvegetables.adapter.ProductCategoryAdapter;
 import com.sellingvegetables.databinding.ActivityProductBinding;
+import com.sellingvegetables.databinding.DialogAlertBinding;
+import com.sellingvegetables.uis.activity_base.BaseActivity;
 
-public class ProductActivity extends AppCompatActivity {
+public class ProductActivity extends BaseActivity {
     private ActivityProductBinding binding;
     private ProductCategoryAdapter categoryAdapter;
     private ProductAdapter productAdapter;
@@ -35,5 +41,24 @@ public class ProductActivity extends AppCompatActivity {
         binding.recyclerProduct.setAdapter(productAdapter);
 
 
+    }
+    public static void CreateDialogAlertProfile(Context context) {
+        final AlertDialog dialog = new AlertDialog.Builder(context)
+                .create();
+
+        DialogAlertBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_alert, null, false);
+
+
+        binding.btnAdd.setOnClickListener(v -> {
+                    Intent intent = new Intent(context, ProductActivity.class);
+                    ((AppCompatActivity) context).startActivityForResult(intent, 2);
+
+                    dialog.dismiss();
+                }
+
+        );
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setView(binding.getRoot());
+        dialog.show();
     }
 }

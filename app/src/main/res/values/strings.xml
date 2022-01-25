@@ -19,6 +19,7 @@
     <string name="total_after_discount">Total After Discount :</string>
     <string name="total1">Total :</string>
     <string name="save">Save</string>
+    <string name="add">Add</string>
     <string-array name="langs">
 
         <item>English</item>

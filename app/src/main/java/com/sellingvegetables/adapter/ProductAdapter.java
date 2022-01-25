@@ -2,6 +2,7 @@ package com.sellingvegetables.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sellingvegetables.R;
 import com.sellingvegetables.databinding.ProductItemRowBinding;
+import com.sellingvegetables.uis.activity_product.ProductActivity;
 
 import java.util.List;
 
@@ -33,6 +35,12 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MyHolder myHolder=(MyHolder) holder;
+        myHolder.binding.llProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProductActivity.CreateDialogAlertProfile(context);
+            }
+        });
     }
 
     @Override

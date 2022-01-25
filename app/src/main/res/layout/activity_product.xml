@@ -9,62 +9,99 @@
 
 
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:orientation="vertical"
-           >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="3dp"
+        >
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="50dp"
-           android:layout_marginTop="50dp"
-           android:layout_marginStart="20dp"
-           android:layout_marginEnd="20dp"
-           android:background="@drawable/linear_shape"
-           tools:targetApi="lollipop">
-           <Spinner
-               android:id="@+id/spinner"
-               android:layout_width="0dp"
-               android:layout_height="match_parent"
-               android:entries="@array/customer"
-               android:layout_weight="1"
-               android:spinnerMode="dropdown"/>
+        <LinearLayout
+            android:id="@+id/llSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/linear_shape"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:targetApi="lollipop">
 
-       </LinearLayout>
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
 
-           <androidx.recyclerview.widget.RecyclerView
-               android:id="@+id/recyclerCategory"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_marginTop="50dp"
-               android:layout_marginStart="5dp"
-               android:layout_marginEnd="5dp"/>
-           <ScrollView
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:fillViewport="true"
-               android:background="@color/gray3"
-               >
+                android:entries="@array/customer"
+                android:spinnerMode="dropdown" />
 
-               <LinearLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:orientation="vertical"
-                   android:layout_marginStart="5dp"
-                   android:background="@drawable/linear_shape2"
-                   >
-                   <androidx.recyclerview.widget.RecyclerView
-                       android:id="@+id/recyclerProduct"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_marginStart="8dp"
-                       android:layout_marginEnd="8dp"
-                       android:layout_marginBottom="5dp"/>
-               </LinearLayout>
+        </LinearLayout>
 
-           </ScrollView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llSpinner" />
 
-       </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray3"
+            android:fillViewport="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recyclerCategory">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/linear_shape2"
+
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+
+                    android:layout_marginBottom="5dp" />
+            </LinearLayout>
+
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/llMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:gravity="bottom"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_add"
+                android:tint="@color/white"
+                app:backgroundTint="@color/green"
+                app:elevation="0dp"
+                app:fabSize="mini" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
