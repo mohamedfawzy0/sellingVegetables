@@ -25,6 +25,7 @@ public class LoginActivity extends BaseActivity {
         
     }
 
+
     private void initView() {
 binding.btLogin.setOnClickListener(new View.OnClickListener() {
     @Override
