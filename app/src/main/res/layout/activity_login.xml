@@ -166,6 +166,7 @@
                 android:buttonTint="@color/green"
                 android:textSize="15sp"/>
             <Button
+                android:id="@+id/btLogin"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="20dp"

@@ -7,6 +7,19 @@
     <string name="chooseLanguage">choose Language</string>
     <string name="password">Password</string>
     <string name="rememberme">Remember me</string>
+    <string name="sales_invoices">sales invoices</string>
+    <string name="return_invoices">Return invoices</string>
+    <string name="discout">Discout</string>
+    <string name="item">Item</string>
+    <string name="amount">Amount</string>
+    <string name="price">Price</string>
+    <string name="total">Total</string>
+    <string name="total_befor_tax">Total Befor Tax :</string>
+    <string name="total_after_tax">Total After Tax :</string>
+    <string name="total_before_discount">Total Before Discount :</string>
+    <string name="total_after_discount">Total After Discount :</string>
+    <string name="total1">Total :</string>
+    <string name="save">Save</string>
     <string-array name="langs">
 
         <item>English</item>

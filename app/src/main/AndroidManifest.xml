@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".uis.activity_product.ProductActivity"
+            android:name=".uis.activity_splash.SplashActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -29,8 +29,10 @@
 
         </activity>
         <activity
-            android:name=".uis.activity_splash.SplashActivity"
-            android:exported="false" />
+            android:name=".uis.activity_product.ProductActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            />
         <activity
             android:name=".uis.activity_login.LoginActivity"
             android:windowSoftInputMode="adjustResize"
@@ -40,7 +42,7 @@
         </activity>
         <activity
             android:name=".uis.activity_home.HomeActivity"
-            android:exported="true"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>

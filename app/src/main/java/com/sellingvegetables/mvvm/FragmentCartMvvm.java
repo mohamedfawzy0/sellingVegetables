@@ -2,22 +2,44 @@ package com.sellingvegetables.mvvm;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import io.reactivex.disposables.CompositeDisposable;
+import com.sellingvegetables.remote.Api;
+import com.sellingvegetables.tags.Tags;
 
-public class HomeActivityMvvm extends AndroidViewModel {
+import java.util.List;
+
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
+
+public class FragmentCartMvvm extends AndroidViewModel {
+    private static final String TAG = "FragmentHomeMvvm";
     private Context context;
 
     private CompositeDisposable disposable = new CompositeDisposable();
 
-    public HomeActivityMvvm(@NonNull Application application) {
+
+
+    public FragmentCartMvvm(@NonNull Application application) {
         super(application);
         context = application.getApplicationContext();
     }
+
+
+
+
+
+
+
 
     @Override
     protected void onCleared() {
