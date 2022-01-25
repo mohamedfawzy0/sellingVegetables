@@ -3,4 +3,17 @@
     <string name="field_required">field required</string>
     <string name="login">Login</string>
     <string name="username">userName</string>
+    <string name="chooseLanguage">choose Language</string>
+    <string name="password">Password</string>
+    <string name="rememberme">Remember me</string>
+    <string-array name="langs">
+
+        <item>English</item>
+        <item>Arabic</item>
+    </string-array>
+    <string-array name="customer">
+
+        <item>customer1</item>
+        <item>customer2</item>
+    </string-array>
 </resources>

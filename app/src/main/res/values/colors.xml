@@ -41,7 +41,10 @@
     <color name="black3">#E5E8EC</color>
 
     <color name="color_red">#C00B1E</color>
-    <color name="green">#0B9A2A</color>
+
+    <color name="green">#4CAF50</color>
+    <color name="green1">#98D64F</color>
+    <color name="green2">#CAE4AC</color>
 
     <color name="black_trans">#55000000</color>
     <color name="transparent">#00000000</color>

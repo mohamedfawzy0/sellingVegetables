@@ -18,23 +18,29 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".uis.activity_splash.SplashActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uis.activity_sign_up.SignUpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uis.activity_login.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uis.activity_home.HomeActivity"
-            android:exported="true">
+            android:name=".uis.activity_product.ProductActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+        <activity
+            android:name=".uis.activity_splash.SplashActivity"
+            android:exported="false" />
+        <activity
+            android:name=".uis.activity_login.LoginActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true">
+
+
+        </activity>
+        <activity
+            android:name=".uis.activity_home.HomeActivity"
+            android:exported="true"></activity>
     </application>
 
 </manifest>

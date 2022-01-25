@@ -3,10 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProjects/sellingVegetables/app/src/main/res/drawable/btn_shape.xml" value="0.2601851851851852" />
         <entry key="..\:/AndroidProjects/sellingVegetables/app/src/main/res/drawable/ic_empty_user.xml" value="0.2601851851851852" />
+        <entry key="..\:/AndroidProjects/sellingVegetables/app/src/main/res/drawable/ic_lang.xml" value="0.2601851851851852" />
+        <entry key="..\:/AndroidProjects/sellingVegetables/app/src/main/res/drawable/ic_language.xml" value="0.2601851851851852" />
         <entry key="..\:/AndroidProjects/sellingVegetables/app/src/main/res/drawable/ic_password.xml" value="0.2601851851851852" />
         <entry key="..\:/AndroidProjects/sellingVegetables/app/src/main/res/drawable/linear_shape.xml" value="0.2601851851851852" />
+        <entry key="..\:/AndroidProjects/sellingVegetables/app/src/main/res/drawable/linear_shape2.xml" value="0.2601851851851852" />
+        <entry key="..\:/AndroidProjects/sellingVegetables/app/src/main/res/drawable/linear_shape3.xml" value="0.2601851851851852" />
+        <entry key="..\:/AndroidProjects/sellingVegetables/app/src/main/res/layout/activity_home.xml" value="0.21829710144927536" />
         <entry key="..\:/AndroidProjects/sellingVegetables/app/src/main/res/layout/activity_login.xml" value="0.21829710144927536" />
+        <entry key="..\:/AndroidProjects/sellingVegetables/app/src/main/res/layout/activity_product.xml" value="0.21829710144927536" />
+        <entry key="..\:/AndroidProjects/sellingVegetables/app/src/main/res/layout/activity_splash.xml" value="0.21829710144927536" />
+        <entry key="..\:/AndroidProjects/sellingVegetables/app/src/main/res/layout/category_item_row.xml" value="0.21829710144927536" />
+        <entry key="..\:/AndroidProjects/sellingVegetables/app/src/main/res/layout/product_item_row.xml" value="0.21829710144927536" />
       </map>
     </option>
   </component>
