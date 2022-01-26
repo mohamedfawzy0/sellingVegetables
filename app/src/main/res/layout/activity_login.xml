@@ -156,15 +156,15 @@
 
 
             </LinearLayout>
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/rememberme"
-                android:layout_marginStart="35sp"
-                android:layout_marginTop="18sp"
-                android:alpha=".7"
-                android:buttonTint="@color/green"
-                android:textSize="15sp"/>
+<!--            <CheckBox-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/rememberme"-->
+<!--                android:layout_marginStart="35sp"-->
+<!--                android:layout_marginTop="18sp"-->
+<!--                android:alpha=".7"-->
+<!--                android:buttonTint="@color/green"-->
+<!--                android:textSize="15sp"/>-->
             <Button
                 android:id="@+id/btLogin"
                 android:layout_width="match_parent"
