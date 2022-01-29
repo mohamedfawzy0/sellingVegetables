@@ -2,8 +2,8 @@
   <library name="Gradle: com.chaos.view:pinview:1.4.3@aar">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/1cfa59c8a56c8d82b385ff274b284015/transformed/jetified-pinview-1.4.3/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1cfa59c8a56c8d82b385ff274b284015/transformed/jetified-pinview-1.4.3/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1cfa59c8a56c8d82b385ff274b284015/transformed/jetified-pinview-1.4.3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1cfa59c8a56c8d82b385ff274b284015/transformed/jetified-pinview-1.4.3/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.chaos.view/pinview/1.4.3/d3fee97a54d3ab7b6b0c54c2f696fa97c8fbe61a/pinview-1.4.3-javadoc.jar!/" />

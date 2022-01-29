@@ -3,7 +3,10 @@ package com.sellingvegetables.uis.activity_home.fragments_home_navigaion;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +20,23 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.sellingvegetables.R;
 
 import com.sellingvegetables.databinding.FragmentHomeBinding;
 
+import com.sellingvegetables.local_database.AccessDatabase;
+import com.sellingvegetables.local_database.DataBaseInterfaces;
+import com.sellingvegetables.model.DepartmentModel;
+import com.sellingvegetables.model.ProductModel;
 import com.sellingvegetables.mvvm.FragmentHomeMvvm;
 import com.sellingvegetables.uis.activity_base.BaseFragment;
 import com.sellingvegetables.uis.activity_home.HomeActivity;
 import com.sellingvegetables.uis.activity_product.ProductActivity;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -40,13 +51,15 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class FragmentHome extends BaseFragment {
+public class FragmentHome extends BaseFragment implements DataBaseInterfaces.ProductInsertInterface, DataBaseInterfaces.CategoryInsertInterface {
     private static final String TAG = FragmentHome.class.getName();
     private HomeActivity activity;
     private FragmentHomeBinding binding;
     private FragmentHomeMvvm fragmentHomeMvvm;
-
+    private AccessDatabase accessDatabase;
+    private int index = 0;
     private CompositeDisposable disposable = new CompositeDisposable();
+    private List<ProductModel> productModels;
 
 
     @Override
@@ -95,15 +108,40 @@ public class FragmentHome extends BaseFragment {
     }
 
     private void initView() {
+        accessDatabase = new AccessDatabase(activity);
+
         binding.setLang(getLang());
         fragmentHomeMvvm = ViewModelProviders.of(this).get(FragmentHomeMvvm.class);
-binding.cardsales.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        Intent intent=new Intent(activity, ProductActivity.class);
-        startActivity(intent);
-    }
-});
+        fragmentHomeMvvm.getCategoryData().observe(activity, new androidx.lifecycle.Observer<List<DepartmentModel>>() {
+            @Override
+            public void onChanged(List<DepartmentModel> departmentModels) {
+                if (departmentModels.size() > 0) {
+                    Log.e("kkkk",departmentModels.size()+"");
+                    accessDatabase.insertCategory(departmentModels, FragmentHome.this);
+                    //binding.cardNoData.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        fragmentHomeMvvm.getProductList().observe(activity, new androidx.lifecycle.Observer<List<ProductModel>>() {
+            @Override
+            public void onChanged(List<ProductModel> productModels) {
+                if (productModels != null && productModels.size() > 0) {
+                    Log.e("kkkk",productModels.size()+"");
+
+                    FragmentHome.this.productModels = productModels;
+                    setImageBitmap();
+                }
+            }
+        });
+        binding.cardsales.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity, ProductActivity.class);
+                startActivity(intent);
+            }
+        });
+        fragmentHomeMvvm.getDepartment(getUserModel());
 
     }
 
@@ -115,6 +153,60 @@ binding.cardsales.setOnClickListener(new View.OnClickListener() {
     }
 
 
+    @Override
+    public void onProductDataInsertedSuccess(Boolean bol) {
+        binding.progBar.setVisibility(View.GONE);
+        binding.nested.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void onCategoryDataInsertedSuccess(Boolean bol) {
+        if (bol) {
+            fragmentHomeMvvm.getProducts(getUserModel());
+        }
+    }
+
+    public void setImageBitmap() {
+
+
+        Glide.with(this)
+                .asBitmap()
+                .load(productModels.get(index).getPhoto())
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        ProductModel productModel = productModels.get(index);
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        resource.compress(Bitmap.CompressFormat.JPEG, 10, stream);
+                        productModel.setImageBitmap(stream.toByteArray());
+                        productModels.set(index, productModel);
+
+                        index += 1;
+                        if (index == productModels.size()) {
+                            accessDatabase.insertProduct(productModels, FragmentHome.this);
+                        } else {
+                            setImageBitmap();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                    }
+
+                    @Override
+                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                        // super.onLoadFailed(errorDrawable);
+                        index += 1;
+                        if (index == productModels.size()) {
+                            accessDatabase.insertProduct(productModels, FragmentHome.this);
+                        } else {
+                            setImageBitmap();
+                        }
+                    }
+                });
+    }
 
 }

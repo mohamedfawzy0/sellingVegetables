@@ -85,7 +85,7 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if (getUserModel() != null) {
+                if (getUserModel() == null) {
                     navigateToLoginActivity();
                 } else {
                     navigateToHomeActivity();

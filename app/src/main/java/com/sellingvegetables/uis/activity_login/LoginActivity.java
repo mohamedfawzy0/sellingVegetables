@@ -1,48 +1,95 @@
 package com.sellingvegetables.uis.activity_login;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.sellingvegetables.R;
 import com.sellingvegetables.databinding.ActivityLoginBinding;
+import com.sellingvegetables.language.Language;
+import com.sellingvegetables.model.LoginModel;
+import com.sellingvegetables.mvvm.ActivityLoginMvvm;
+import com.sellingvegetables.share.Common;
 import com.sellingvegetables.uis.activity_base.BaseActivity;
 import com.sellingvegetables.uis.activity_home.HomeActivity;
 
+import io.paperdb.Paper;
+
 public class LoginActivity extends BaseActivity {
     private ActivityLoginBinding binding;
+    private LoginModel model;
+    private ActivityLoginMvvm activityLoginMvvm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_login);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         initView();
-        
     }
 
 
     private void initView() {
-binding.btLogin.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        navigateToHomeActivity();
+        activityLoginMvvm = ViewModelProviders.of(this).get(ActivityLoginMvvm.class);
+        activityLoginMvvm.onLoginSuccess().observe(this, userModel -> {
+            setUserModel(userModel);
+            refreshActivity(model.getLang());
+        });
+
+        model = new LoginModel();
+        binding.setModel(model);
+        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    model.setLang("ar");
+                } else {
+                    model.setLang("en");
+                }
+                binding.setModel(model);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        binding.btLogin.setOnClickListener(v -> {
+            if (model.isDataValid(this)) {
+                Common.CloseKeyBoard(this, binding.edPassword);
+                activityLoginMvvm.login(this, model);
+            }
+        });
+
+
     }
-});
-    }
 
-    private void navigateToHomeActivity() {
-        Intent intent;
-
-
-        intent = new Intent(this, HomeActivity.class);
-
+    private void navigateToHomActivity() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
         finish();
+    }
+
+    public void refreshActivity(String lang) {
+        Paper.book().write("lang", lang);
+        Language.setNewLocale(this, lang);
+        new Handler()
+                .postDelayed(() -> {
+
+                    navigateToHomActivity();
+                }, 500);
+
 
     }
+
 }

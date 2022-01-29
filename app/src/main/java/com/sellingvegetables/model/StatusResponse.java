@@ -3,11 +3,11 @@ package com.sellingvegetables.model;
 import java.io.Serializable;
 
 public class StatusResponse implements Serializable {
-    protected int status;
+    protected int code;
     protected String message;
 
-    public int getStatus() {
-        return status;
+    public int getCode() {
+        return code;
     }
 
     public String getMessage() {

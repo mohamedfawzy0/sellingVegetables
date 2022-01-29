@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sellingvegetables.R;
 import com.sellingvegetables.databinding.ProductItemRowBinding;
+import com.sellingvegetables.model.ProductModel;
 import com.sellingvegetables.uis.activity_product.ProductActivity;
 
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    private List<Object> list;
+    private List<ProductModel> list;
     private Context context;
     private LayoutInflater inflater;
 
@@ -35,10 +36,11 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MyHolder myHolder=(MyHolder) holder;
+        ((MyHolder) holder).binding.setModel(list.get(position));
         myHolder.binding.llProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ProductActivity.CreateDialogAlertProfile(context);
+                ProductActivity.CreateDialogAlertProfile(context,list.get(holder.getLayoutPosition()));
             }
         });
     }
@@ -48,11 +50,11 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (list != null) {
             return list.size();
         } else {
-            return 15;
+            return 0;
         }
     }
 
-    public void updateList(List<Object> list) {
+    public void updateList(List<ProductModel> list) {
         this.list = list;
         notifyDataSetChanged();
     }

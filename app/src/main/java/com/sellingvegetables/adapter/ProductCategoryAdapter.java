@@ -2,6 +2,7 @@ package com.sellingvegetables.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,11 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sellingvegetables.R;
 import com.sellingvegetables.databinding.CategoryItemRowBinding;
+import com.sellingvegetables.model.DepartmentModel;
+import com.sellingvegetables.model.ProductModel;
+import com.sellingvegetables.uis.activity_product.ProductActivity;
 
 import java.util.List;
 
 public class ProductCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    private List<Object> list;
+    private List<DepartmentModel> list;
     private Context context;
     private LayoutInflater inflater;
 
@@ -33,6 +37,14 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MyHolder myHolder=(MyHolder) holder;
+        ((MyHolder) holder).binding.setModel(list.get(position));
+holder.itemView.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        ProductActivity productActivity=(ProductActivity) context;
+        productActivity.show(list.get(holder.getLayoutPosition()).getId());
+    }
+});
     }
 
     @Override
@@ -41,10 +53,10 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             return list.size();
 
         } else {
-            return 3;
+            return 0;
         }
     }
-    public void updateList(List<Object> list) {
+    public void updateList(List<DepartmentModel> list) {
         this.list = list;
         notifyDataSetChanged();
     }

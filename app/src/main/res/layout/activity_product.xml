@@ -15,6 +15,15 @@
         android:orientation="vertical"
         android:layout_margin="3dp"
         >
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/llSpinner"
@@ -24,9 +33,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/linear_shape"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+
             tools:targetApi="lollipop">
 
             <Spinner
@@ -48,18 +55,15 @@
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/llSpinner" />
+            />
 
-        <ScrollView
+        <FrameLayout
+            android:id="@+id/frame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/gray3"
             android:fillViewport="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recyclerCategory">
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -80,8 +84,10 @@
                     android:layout_marginBottom="5dp" />
             </LinearLayout>
 
-        </ScrollView>
+        </FrameLayout>
 
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
         <LinearLayout
             android:id="@+id/llMap"
             android:layout_width="wrap_content"
@@ -105,5 +111,6 @@
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </layout>
