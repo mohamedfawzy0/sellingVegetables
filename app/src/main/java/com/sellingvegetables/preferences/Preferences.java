@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 
 import com.google.gson.Gson;
+import com.sellingvegetables.model.CreateOrderModel;
 import com.sellingvegetables.model.UserModel;
 import com.sellingvegetables.model.UserSettingsModel;
 
@@ -95,5 +96,29 @@ public class Preferences {
         Gson gson = new Gson();
         return gson.fromJson(preferences.getString("settings",""), UserSettingsModel.class);
     }
+    public void create_update_cart_oliva(Context context , CreateOrderModel model)
+    {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("cart_oliva", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String cart_oliva_data = gson.toJson(model);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("cart_oliva_data", cart_oliva_data);
+        editor.apply();
 
+    }
+
+    public CreateOrderModel getcart_olivaData(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("cart_oliva", Context.MODE_PRIVATE);
+        String json_data = sharedPreferences.getString("cart_oliva_data","");
+        Gson gson = new Gson();
+        CreateOrderModel model = gson.fromJson(json_data, CreateOrderModel.class);
+        return model;
+    }
+
+    public void clearcart_oliva(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("cart_oliva", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.clear();
+        edit.apply();
+    }
 }

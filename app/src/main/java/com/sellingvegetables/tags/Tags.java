@@ -9,4 +9,6 @@ public class Tags {
 
     public static final String table_products="products";
     public static final String table_category="categorys";
+    public static final String table_order="orders";
+    public static final String table_order_products="order_products";
 }

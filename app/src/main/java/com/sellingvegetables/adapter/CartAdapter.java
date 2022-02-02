@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sellingvegetables.R;
 import com.sellingvegetables.databinding.CartItemRowBinding;
 import com.sellingvegetables.databinding.ProductItemRowBinding;
+import com.sellingvegetables.model.ItemCartModel;
 
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    private List<Object> list;
+    private List<ItemCartModel> list;
     private Context context;
     private LayoutInflater inflater;
 
@@ -41,11 +42,11 @@ public class CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         if (list != null) {
             return list.size();
         } else {
-            return 15;
+            return 0;
         }
     }
 
-    public void updateList(List<Object> list) {
+    public void updateList(List<ItemCartModel> list) {
         this.list = list;
         notifyDataSetChanged();
     }

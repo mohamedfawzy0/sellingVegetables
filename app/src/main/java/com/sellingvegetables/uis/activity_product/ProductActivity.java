@@ -22,11 +22,15 @@ import com.sellingvegetables.databinding.ActivityProductBinding;
 import com.sellingvegetables.databinding.DialogAlertBinding;
 import com.sellingvegetables.local_database.AccessDatabase;
 import com.sellingvegetables.local_database.DataBaseInterfaces;
+import com.sellingvegetables.model.CreateOrderModel;
 import com.sellingvegetables.model.DepartmentModel;
+import com.sellingvegetables.model.ItemCartModel;
 import com.sellingvegetables.model.ProductModel;
+import com.sellingvegetables.preferences.Preferences;
 import com.sellingvegetables.uis.activity_add_product.AddProductActivity;
 import com.sellingvegetables.uis.activity_base.BaseActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductActivity extends BaseActivity implements DataBaseInterfaces.ProductInterface, DataBaseInterfaces.CategoryInterface {
@@ -35,6 +39,7 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
     private ProductAdapter productAdapter;
     private AccessDatabase accessDatabase;
     private ActivityResultLauncher<Intent> launcher;
+    private Preferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,7 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
     }
 
     private void initView() {
+        preferences=Preferences.getInstance();
         accessDatabase = new AccessDatabase(this);
 
         categoryAdapter = new ProductCategoryAdapter(this);
@@ -74,10 +80,29 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
 
 
         binding.btnAdd.setOnClickListener(v -> {
-                    Intent intent = new Intent(context, ProductActivity.class);
-                    ((AppCompatActivity) context).startActivityForResult(intent, 2);
+                  String amount=binding.edtAmount.getText().toString();
+                  String price=binding.edtprice.getText().toString();
+                  if(!amount.isEmpty()&&!price.isEmpty()){
+                      binding.edtAmount.setError(null);
+                      binding.edtprice.setError(null);
 
-                    dialog.dismiss();
+                      dialog.dismiss();
+
+                  }
+                  else{
+                      if(amount.isEmpty()){
+                          binding.edtAmount.setError(context.getResources().getString(R.string.field_required));
+                      }
+                      else{
+                          binding.edtAmount.setError(null);
+                      }
+                      if(price.isEmpty()){
+                          binding.edtprice.setError(context.getResources().getString(R.string.field_required));
+                      }
+                      else{
+                          binding.edtprice.setError(null);
+                      }
+                  }
                 }
 
         );
@@ -85,7 +110,29 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
         dialog.setView(binding.getRoot());
         dialog.show();
     }
+    public void addtocart(ProductModel productModel,int amount,double price) {
+        List<ItemCartModel> productDetailsList;
+        CreateOrderModel add_order_model = preferences.getcart_olivaData(ProductActivity.this);
+        if (add_order_model != null) {
+            productDetailsList = add_order_model.getDetails();
+            if (productDetailsList == null) {
+                productDetailsList = new ArrayList<>();
+            }
+        } else {
+            add_order_model = new CreateOrderModel();
+            productDetailsList = new ArrayList<>();
+        }
+        ItemCartModel productDetails = new ItemCartModel();
+        productDetails.setQty(amount);
+        productDetails.setProduct_id(productModel.getId());
+        productDetails.setPrice(price);
+        productDetails.setTotal(amount*price);
+        productDetails.setName(productModel.getTitle());
+        productDetailsList.add(productDetails);
+        add_order_model.setDetails(productDetailsList);
+        preferences.create_update_cart_oliva(ProductActivity.this, add_order_model);
 
+    }
     @Override
     public void onCategoryDataSuccess(List<DepartmentModel> categoryModelList) {
         categoryAdapter.updateList(categoryModelList);

@@ -22,7 +22,12 @@ import com.sellingvegetables.R;
 import com.sellingvegetables.adapter.CartAdapter;
 import com.sellingvegetables.adapter.ProductAdapter;
 import com.sellingvegetables.databinding.FragmentCartBinding;
+import com.sellingvegetables.local_database.AccessDatabase;
+import com.sellingvegetables.model.CreateOrderModel;
+import com.sellingvegetables.model.ItemCartModel;
+import com.sellingvegetables.model.UserModel;
 import com.sellingvegetables.mvvm.FragmentCartMvvm;
+import com.sellingvegetables.preferences.Preferences;
 import com.sellingvegetables.uis.activity_base.BaseFragment;
 import com.sellingvegetables.uis.activity_home.HomeActivity;
 
@@ -34,6 +39,12 @@ public class FragmentCart extends BaseFragment {
     private HomeActivity activity;
     private FragmentCartMvvm fragmentCartMvvm;
     private CartAdapter cartadpter;
+    private List<ItemCartModel> list;
+    private CreateOrderModel createOrderModel;
+    private double total, tax, discount;
+    private Preferences preferences;
+    private UserModel userModel;
+    private AccessDatabase accessDatabase;
 
     public static FragmentCart newInstance() {
         FragmentCart fragment = new FragmentCart();
@@ -63,14 +74,44 @@ public class FragmentCart extends BaseFragment {
 
     private void initView() {
         fragmentCartMvvm = ViewModelProviders.of(this).get(FragmentCartMvvm.class);
-
-        cartadpter=new CartAdapter(activity);
-        binding.recviewcart.setLayoutManager(new GridLayoutManager(activity,1));
+        preferences = Preferences.getInstance();
+        userModel = preferences.getUserData(activity);
+        createOrderModel = preferences.getcart_olivaData(activity);
+        cartadpter = new CartAdapter(activity);
+        binding.recviewcart.setLayoutManager(new GridLayoutManager(activity, 1));
         binding.recviewcart.setAdapter(cartadpter);
+        updateUi();
 
     }
 
 
+    private void updateUi() {
+        list.clear();
+        if (createOrderModel != null) {
+            list.addAll(createOrderModel.getDetails());
+            cartadpter.notifyDataSetChanged();
+//            binding.llEmptyCart.setVisibility(View.GONE);
+            calculateTotal();
+
+        } else {
+//            binding.llEmptyCart.setVisibility(View.VISIBLE);
+//            binding.fltotal.setVisibility(View.GONE);
+
+        }
+    }
+
+    private void calculateTotal() {
+        total = 0;
+        tax = 0;
+        for (ItemCartModel model : list) {
+
+            total += model.getTotal();
+        }
+        createOrderModel.setTotal(total);
+        createOrderModel.setTax(tax);
+        createOrderModel.setDiscount(discount);
+
+    }
 
 
 }
