@@ -6,11 +6,13 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.sellingvegetables.model.CreateOrderModel;
 import com.sellingvegetables.model.DepartmentModel;
+import com.sellingvegetables.model.ItemCartModel;
 import com.sellingvegetables.model.ProductModel;
 import com.sellingvegetables.tags.Tags;
 
-@Database(version = 1, entities = {DepartmentModel.class, ProductModel.class}, exportSchema = false)
+@Database(version = 1, entities = {DepartmentModel.class, ProductModel.class, CreateOrderModel.class, ItemCartModel.class}, exportSchema = false)
 public abstract class LocalDatabase extends RoomDatabase {
 
     public static volatile LocalDatabase instance = null;

@@ -234,7 +234,7 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
         List<ItemCartModel> list = createOrderModels.get(pos).getDetails();
         for (int i = 0; i < list.size(); i++) {
             ItemCartModel itemCartModel = list.get(i);
-            itemCartModel.setCreate_id((int) bol);
+            itemCartModel.setCreate_id(createOrderModels.get(pos).getId());
             list.set(i, itemCartModel);
         }
         if (bol > 0) {

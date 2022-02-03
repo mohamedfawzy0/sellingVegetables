@@ -12,7 +12,7 @@ import com.sellingvegetables.tags.Tags;
 
 import java.io.Serializable;
 
-@Entity(tableName = Tags.table_order_products,indices = @Index(value = {"product_id", "localid","create_id"}),
+@Entity(tableName = Tags.table_order_products,
         foreignKeys = {
                 @ForeignKey(entity = CreateOrderModel.class, parentColumns = "id", childColumns = "create_id", onDelete = CASCADE),
                 @ForeignKey(entity = ProductModel.class, parentColumns = "id", childColumns = "product_id", onDelete = CASCADE)
@@ -24,7 +24,7 @@ import java.io.Serializable;
 public class ItemCartModel implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int localid;
-    private int create_id;
+    private double create_id;
     private double product_id;
     private double price;
     private int qty;
@@ -39,11 +39,11 @@ public class ItemCartModel implements Serializable {
         this.localid = localid;
     }
 
-    public int getCreate_id() {
+    public double getCreate_id() {
         return create_id;
     }
 
-    public void setCreate_id(int create_id) {
+    public void setCreate_id(double create_id) {
         this.create_id = create_id;
     }
 
