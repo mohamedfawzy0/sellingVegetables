@@ -16,8 +16,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 
+import com.sellingvegetables.model.CreateOrderModel;
 import com.sellingvegetables.model.DepartmentDataModel;
 import com.sellingvegetables.model.DepartmentModel;
+import com.sellingvegetables.model.OrderDataModel;
 import com.sellingvegetables.model.ProductDataModel;
 import com.sellingvegetables.model.ProductModel;
 import com.sellingvegetables.model.SingleProductDataModel;
@@ -46,6 +48,8 @@ public class FragmentHomeMvvm extends AndroidViewModel {
     private CompositeDisposable disposable = new CompositeDisposable();
     private MutableLiveData<List<DepartmentModel>> departmentLivData;
     private MutableLiveData<List<ProductModel>> listMutableLiveData;
+    private MutableLiveData<List<CreateOrderModel>> mutableLiveData;
+
     private MutableLiveData<ProductModel> productMutableLiveData;
 
 
@@ -61,7 +65,12 @@ public class FragmentHomeMvvm extends AndroidViewModel {
         }
         return listMutableLiveData;
     }
-
+    public MutableLiveData<List<CreateOrderModel>> getOrderList() {
+        if (mutableLiveData == null) {
+            mutableLiveData = new MutableLiveData<>();
+        }
+        return mutableLiveData;
+    }
     public MutableLiveData<ProductModel> getProduct() {
         if (productMutableLiveData == null) {
             productMutableLiveData = new MutableLiveData<>();
@@ -148,6 +157,37 @@ Log.e("kkkk",e.toString());
                     }
                 });
     }
+    public void getOrders(UserModel userModel) {
+
+
+        Api.getService(Tags.base_url)
+                .getOrders(userModel.getData().getAccess_token())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<Response<OrderDataModel>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        disposable.add(d);
+                    }
+                    public void onSuccess(@NonNull Response<OrderDataModel> response) {
+                        Log.e("dddd",response.code()+"");
+
+                        if (response.isSuccessful() && response.body() != null) {
+                            Log.e("dddd",response.body().getCode()+"");
+                            if (response.body().getCode() == 200) {
+                                // List<ProductModel> list = response.body().getData();
+                                mutableLiveData.setValue(response.body().getData());
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.e("kkkk",e.toString());
+                    }
+                });
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();

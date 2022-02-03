@@ -6,7 +6,9 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 
+import com.sellingvegetables.model.CreateOrderModel;
 import com.sellingvegetables.model.DepartmentModel;
+import com.sellingvegetables.model.ItemCartModel;
 import com.sellingvegetables.model.ProductModel;
 import com.sellingvegetables.tags.Tags;
 
@@ -35,7 +37,10 @@ public interface DAOInterface {
     ProductModel getlastOrder();
     @Insert(entity = ProductModel.class, onConflict = OnConflictStrategy.IGNORE)
     long insertProductData(ProductModel retrieveModel);
-
+    @Insert(entity = ItemCartModel.class, onConflict = OnConflictStrategy.IGNORE)
+    long[] insertOrderProducts(List<ItemCartModel> itemCartModelList);
+    @Insert(entity = CreateOrderModel.class, onConflict = OnConflictStrategy.IGNORE)
+    long insertOrderData(CreateOrderModel createOrderModel);
 
 
 

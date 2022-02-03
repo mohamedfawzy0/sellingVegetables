@@ -28,5 +28,10 @@ public class DataBaseInterfaces {
     public interface LastProductInterface {
         void onLastProductDataSuccess(ProductModel productModel);
     }
-
+    public interface OrderInsertInterface {
+        void onOrderDataInsertedSuccess(long bol);
+    }
+    public interface ProductOrderInsertInterface {
+        void onProductORderDataInsertedSuccess(Boolean bol);
+    }
 }

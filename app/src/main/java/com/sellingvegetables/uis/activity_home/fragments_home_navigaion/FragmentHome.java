@@ -29,7 +29,9 @@ import com.sellingvegetables.databinding.FragmentHomeBinding;
 
 import com.sellingvegetables.local_database.AccessDatabase;
 import com.sellingvegetables.local_database.DataBaseInterfaces;
+import com.sellingvegetables.model.CreateOrderModel;
 import com.sellingvegetables.model.DepartmentModel;
+import com.sellingvegetables.model.ItemCartModel;
 import com.sellingvegetables.model.ProductModel;
 import com.sellingvegetables.mvvm.FragmentHomeMvvm;
 import com.sellingvegetables.uis.activity_base.BaseFragment;
@@ -51,7 +53,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class FragmentHome extends BaseFragment implements DataBaseInterfaces.ProductInsertInterface, DataBaseInterfaces.CategoryInsertInterface {
+public class FragmentHome extends BaseFragment implements DataBaseInterfaces.ProductInsertInterface, DataBaseInterfaces.CategoryInsertInterface, DataBaseInterfaces.OrderInsertInterface, DataBaseInterfaces.ProductOrderInsertInterface {
     private static final String TAG = FragmentHome.class.getName();
     private HomeActivity activity;
     private FragmentHomeBinding binding;
@@ -60,6 +62,8 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
     private int index = 0;
     private CompositeDisposable disposable = new CompositeDisposable();
     private List<ProductModel> productModels;
+    private List<CreateOrderModel> createOrderModels;
+    private int pos = 0;
 
 
     @Override
@@ -116,7 +120,7 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
             @Override
             public void onChanged(List<DepartmentModel> departmentModels) {
                 if (departmentModels.size() > 0) {
-                    Log.e("kkkk",departmentModels.size()+"");
+                    Log.e("kkkk", departmentModels.size() + "");
                     accessDatabase.insertCategory(departmentModels, FragmentHome.this);
                     //binding.cardNoData.setVisibility(View.GONE);
                 }
@@ -127,10 +131,21 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
             @Override
             public void onChanged(List<ProductModel> productModels) {
                 if (productModels != null && productModels.size() > 0) {
-                    Log.e("kkkk",productModels.size()+"");
+                    Log.e("kkkk", productModels.size() + "");
 
                     FragmentHome.this.productModels = productModels;
                     setImageBitmap();
+                }
+            }
+        });
+        fragmentHomeMvvm.getOrderList().observe(activity, new androidx.lifecycle.Observer<List<CreateOrderModel>>() {
+            @Override
+            public void onChanged(List<CreateOrderModel> createOrderModels) {
+                if (createOrderModels != null && createOrderModels.size() > 0) {
+                    insertOrders(createOrderModels);
+                } else {
+                    binding.progBar.setVisibility(View.GONE);
+                    binding.nested.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -145,6 +160,12 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
 
     }
 
+    private void insertOrders(List<CreateOrderModel> createOrderModels) {
+        this.createOrderModels = createOrderModels;
+        accessDatabase.insertOrder(createOrderModels.get(pos), FragmentHome.this);
+
+    }
+
 
     @Override
     public void onDestroyView() {
@@ -155,8 +176,7 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
 
     @Override
     public void onProductDataInsertedSuccess(Boolean bol) {
-        binding.progBar.setVisibility(View.GONE);
-        binding.nested.setVisibility(View.VISIBLE);
+        fragmentHomeMvvm.getOrders(getUserModel());
     }
 
     @Override
@@ -209,4 +229,28 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
                 });
     }
 
+    @Override
+    public void onOrderDataInsertedSuccess(long bol) {
+        List<ItemCartModel> list = createOrderModels.get(pos).getDetails();
+        for (int i = 0; i < list.size(); i++) {
+            ItemCartModel itemCartModel = list.get(i);
+            itemCartModel.setCreate_id((int) bol);
+            list.set(i, itemCartModel);
+        }
+        if (bol > 0) {
+            accessDatabase.insertOrderProduct(list, this);
+
+        }
+    }
+
+    @Override
+    public void onProductORderDataInsertedSuccess(Boolean bol) {
+        pos++;
+        if (pos < createOrderModels.size()) {
+            accessDatabase.insertOrder(createOrderModels.get(pos), this);
+        } else {
+            binding.progBar.setVisibility(View.GONE);
+            binding.nested.setVisibility(View.VISIBLE);
+        }
+    }
 }

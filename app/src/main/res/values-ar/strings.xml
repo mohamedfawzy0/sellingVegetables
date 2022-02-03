@@ -29,6 +29,9 @@
     <string name="cancel">Cancel</string>
     <string name="ch_cat">Choose Category</string>
     <string name="perm_image_denied">Permission image denied</string>
+    <string name="tax">Tax</string>
+    <string name="tax2">Tax</string>
+    <string name="discount2">Discount :</string>
 
     <string-array name="langs">
         <item>العربية</item>

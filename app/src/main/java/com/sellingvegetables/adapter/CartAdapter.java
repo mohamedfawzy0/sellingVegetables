@@ -35,6 +35,7 @@ public class CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MyHolder myHolder=(MyHolder) holder;
+        myHolder.binding.setModel(list.get(position));
     }
 
     @Override

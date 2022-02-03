@@ -4,6 +4,7 @@ import static androidx.room.ForeignKey.CASCADE;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 
@@ -11,7 +12,7 @@ import com.sellingvegetables.tags.Tags;
 
 import java.io.Serializable;
 
-@Entity(tableName = Tags.table_order_products,
+@Entity(tableName = Tags.table_order_products,indices = @Index(value = {"product_id", "localid","create_id"}),
         foreignKeys = {
                 @ForeignKey(entity = CreateOrderModel.class, parentColumns = "id", childColumns = "create_id", onDelete = CASCADE),
                 @ForeignKey(entity = ProductModel.class, parentColumns = "id", childColumns = "product_id", onDelete = CASCADE)

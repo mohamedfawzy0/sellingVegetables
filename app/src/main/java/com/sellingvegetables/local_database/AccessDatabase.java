@@ -4,7 +4,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 
+import com.sellingvegetables.model.CreateOrderModel;
 import com.sellingvegetables.model.DepartmentModel;
+import com.sellingvegetables.model.ItemCartModel;
 import com.sellingvegetables.model.ProductModel;
 
 import java.util.List;
@@ -47,7 +49,12 @@ public class AccessDatabase {
     public void insertSingleProduct(ProductModel productModel, DataBaseInterfaces.ProductInsertInterface retrieveInsertInterface) {
         new InsertSingleProductTask(retrieveInsertInterface).execute(productModel);
     }
-
+    public void insertOrder(CreateOrderModel retrieveModel, DataBaseInterfaces.OrderInsertInterface retrieveInsertInterface) {
+        new InsertOrderTask(retrieveInsertInterface).execute(retrieveModel);
+    }
+    public void insertOrderProduct(List<ItemCartModel> itemCartModelList, DataBaseInterfaces.ProductOrderInsertInterface retrieveInsertInterface) {
+        new InsertProductOrderTask(retrieveInsertInterface).execute(itemCartModelList);
+    }
     public class InsertCategoryTask extends AsyncTask<List<DepartmentModel>, Void, Boolean> {
         private DataBaseInterfaces.CategoryInsertInterface retrieveInsertInterface;
 
@@ -210,4 +217,49 @@ public class AccessDatabase {
         }
     }
 
+    public class InsertOrderTask extends AsyncTask<CreateOrderModel, Void, Long> {
+        private DataBaseInterfaces.OrderInsertInterface orderInsertInterface;
+
+        public InsertOrderTask(DataBaseInterfaces.OrderInsertInterface orderInsertInterface) {
+            this.orderInsertInterface = orderInsertInterface;
+        }
+
+        @Override
+        protected Long doInBackground(CreateOrderModel... lists) {
+            boolean isInserted = false;
+            long data = daoInterface.insertOrderData(lists[0]);
+
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(Long bol) {
+            orderInsertInterface.onOrderDataInsertedSuccess(bol);
+
+        }
+    }
+    public class InsertProductOrderTask extends AsyncTask<List<ItemCartModel>, Void, Boolean> {
+        private DataBaseInterfaces.ProductOrderInsertInterface productOrderInsertInterface;
+
+        public InsertProductOrderTask(DataBaseInterfaces.ProductOrderInsertInterface productOrderInsertInterface) {
+            this.productOrderInsertInterface = productOrderInsertInterface;
+        }
+
+        @Override
+        protected Boolean doInBackground(List<ItemCartModel>... lists) {
+            boolean isInserted = false;
+            long[] data = daoInterface.insertOrderProducts(lists[0]);
+            if (data != null && data.length > 0) {
+                isInserted = true;
+            }
+            return isInserted;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean bol) {
+
+            productOrderInsertInterface.onProductORderDataInsertedSuccess(bol);
+
+        }
+    }
 }

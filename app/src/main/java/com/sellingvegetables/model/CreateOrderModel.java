@@ -15,17 +15,20 @@ import java.util.List;
 )
 public class CreateOrderModel implements Serializable {
     @PrimaryKey
-    int id;
+    double id;
     private String customer_name;
     private double total;
     private double discount;
     private double tax;
-private List<ItemCartModel> details;
-    public int getId() {
+    private long date;
+    @Ignore
+    private List<ItemCartModel> details;
+
+    public double getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(double id) {
         this.id = id;
     }
 
@@ -59,6 +62,14 @@ private List<ItemCartModel> details;
 
     public void setTax(double tax) {
         this.tax = tax;
+    }
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
     }
 
     public List<ItemCartModel> getDetails() {

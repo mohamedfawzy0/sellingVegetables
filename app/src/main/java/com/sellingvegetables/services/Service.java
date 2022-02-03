@@ -1,6 +1,7 @@
 package com.sellingvegetables.services;
 
 import com.sellingvegetables.model.DepartmentDataModel;
+import com.sellingvegetables.model.OrderDataModel;
 import com.sellingvegetables.model.ProductDataModel;
 import com.sellingvegetables.model.SingleProductDataModel;
 import com.sellingvegetables.model.UserModel;
@@ -40,4 +41,7 @@ public interface Service {
                                                         @Part("title_en") RequestBody title_en,
                                                         @Part("category_id") RequestBody category_id,
                                                         @Part MultipartBody.Part photo);
+    @GET("api/order/orders")
+    Single<Response<OrderDataModel>> getOrders(@Header("Authorization") String authorization);
+
 }

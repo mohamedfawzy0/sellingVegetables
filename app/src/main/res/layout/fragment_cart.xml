@@ -66,6 +66,54 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/tax"
+                    android:textAllCaps="false"
+                    android:textColor="@color/green"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/linear_shape"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        app:counterEnabled="false"
+                        app:endIconMode="clear_text"
+                        app:errorEnabled="false"
+                        app:hintEnabled="false">
+
+                        <EditText
+                            android:id="@+id/edTax"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:gravity="start|center_vertical"
+                            android:hint="@string/discout"
+                            android:inputType="numberDecimal"
+                            android:lines="1"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -172,16 +220,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/total_befor_tax"
+                        android:text="@string/total"
                         android:textColor="@color/colorPrimary"
                         android:textSize="14sp"
 
                         />
 
                     <TextView
+                        android:id="@+id/tvTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="200"
                         android:textColor="@color/black"
                         android:textSize="14sp"
 
@@ -197,16 +245,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/total_after_tax"
+                        android:text="@string/tax2"
                         android:textColor="@color/colorPrimary"
                         android:textSize="14sp"
 
                         />
 
                     <TextView
+                        android:id="@+id/tvTax"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="200"
                         android:textColor="@color/black"
                         android:textSize="14sp"
 
@@ -222,38 +270,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/total_before_discount"
+                        android:text="@string/discount2"
                         android:textColor="@color/colorPrimary"
                         android:textSize="14sp"
 
                         />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="200"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/total_after_discount"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="14sp"
-
-                        />
-
-                    <TextView
+                        android:id="@+id/tvDiscount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="200"
@@ -279,15 +303,16 @@
                         />
 
                     <TextView
+                        android:id="@+id/tvTotal2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="200"
                         android:textColor="@color/black"
                         android:textSize="14sp"
 
                         />
                 </LinearLayout>
                 <Button
+                    android:id="@+id/btnAdd"
                     android:layout_width="190dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="20dp"
