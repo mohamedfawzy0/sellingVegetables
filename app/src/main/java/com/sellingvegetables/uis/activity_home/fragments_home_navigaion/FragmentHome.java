@@ -33,7 +33,9 @@ import com.sellingvegetables.model.CreateOrderModel;
 import com.sellingvegetables.model.DepartmentModel;
 import com.sellingvegetables.model.ItemCartModel;
 import com.sellingvegetables.model.ProductModel;
+import com.sellingvegetables.model.UserSettingsModel;
 import com.sellingvegetables.mvvm.FragmentHomeMvvm;
+import com.sellingvegetables.preferences.Preferences;
 import com.sellingvegetables.uis.activity_base.BaseFragment;
 import com.sellingvegetables.uis.activity_home.HomeActivity;
 import com.sellingvegetables.uis.activity_product.ProductActivity;
@@ -64,7 +66,8 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
     private List<ProductModel> productModels;
     private List<CreateOrderModel> createOrderModels;
     private int pos = 0;
-
+    private Preferences preferences;
+    private UserSettingsModel userSettingsModel;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -112,7 +115,10 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
     }
 
     private void initView() {
+
         accessDatabase = new AccessDatabase(activity);
+        preferences = Preferences.getInstance();
+        userSettingsModel = preferences.getUserSettings(activity);
 
         binding.setLang(getLang());
         fragmentHomeMvvm = ViewModelProviders.of(this).get(FragmentHomeMvvm.class);
@@ -156,8 +162,18 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
                 startActivity(intent);
             }
         });
-        fragmentHomeMvvm.getDepartment(getUserModel());
+        if (userSettingsModel == null || userSettingsModel.isIs_first()) {
+            if (userSettingsModel == null) {
+                userSettingsModel = new UserSettingsModel();
+            }
+            userSettingsModel.setIs_first(false);
+            preferences.create_update_user_settings(activity, userSettingsModel);
+            fragmentHomeMvvm.getDepartment(getUserModel());
 
+        } else {
+            binding.progBar.setVisibility(View.GONE);
+            binding.nested.setVisibility(View.VISIBLE);
+        }
     }
 
     private void insertOrders(List<CreateOrderModel> createOrderModels) {

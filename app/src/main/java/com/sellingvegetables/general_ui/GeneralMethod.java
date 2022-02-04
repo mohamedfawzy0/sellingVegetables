@@ -16,8 +16,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.exoplayer2.util.Log;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.sellingvegetables.R;
+import com.sellingvegetables.model.BarcodeEncoder;
 import com.sellingvegetables.tags.Tags;
 import com.squareup.picasso.Picasso;
 
@@ -37,7 +40,42 @@ public class GeneralMethod {
 
         }
     }
+    @BindingAdapter({"imagebase64"})
+    public static void image(View view, String endPoint) {
+        if(endPoint!=null) {
+            String url = null;
+            android.util.Log.e("ldldldl", endPoint + "kekekek");
+            String imageDataBytes = endPoint;
+            BarcodeEncoder barcodeEncoder=new BarcodeEncoder();
+            Bitmap bitmap= null;
+            try {
+                bitmap = barcodeEncoder.encodeBitmap(imageDataBytes, BarcodeFormat.QR_CODE, 300, 300);
+            } catch (WriterException e) {
+                e.printStackTrace();
+            }
+            if (view instanceof CircleImageView) {
+                CircleImageView imageView = (CircleImageView) view;
+                if (endPoint != null) {
 
+                    imageView.setImageBitmap(bitmap);
+                }
+            } else if (view instanceof RoundedImageView) {
+                RoundedImageView imageView = (RoundedImageView) view;
+
+                if (endPoint != null) {
+
+                    imageView.setImageBitmap(bitmap);
+                }
+            } else if (view instanceof ImageView) {
+                ImageView imageView = (ImageView) view;
+
+                if (endPoint != null) {
+
+                    imageView.setImageBitmap(bitmap);
+                }
+            }
+        }
+    }
     @BindingAdapter({"image"})
     public static void image(View view, byte[] endPoint) {
         if(endPoint!=null) {

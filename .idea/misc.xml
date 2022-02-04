@@ -23,13 +23,15 @@
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/sellingVegetables/app/src/main/res/drawable/ic_nav_home.xml" value="0.14375" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/sellingVegetables/app/src/main/res/layout/activity_add_product.xml" value="0.264" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/sellingVegetables/app/src/main/res/layout/activity_home.xml" value="0.12760416666666666" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/sellingVegetables/app/src/main/res/layout/activity_invoice.xml" value="0.25253807106598986" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/sellingVegetables/app/src/main/res/layout/activity_login.xml" value="0.264" />
-        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/sellingVegetables/app/src/main/res/layout/activity_product.xml" value="0.12760416666666666" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/sellingVegetables/app/src/main/res/layout/activity_product.xml" value="0.2" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/sellingVegetables/app/src/main/res/layout/activity_splash.xml" value="0.12760416666666666" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/sellingVegetables/app/src/main/res/layout/bill_item_row.xml" value="0.10364583333333334" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/sellingVegetables/app/src/main/res/layout/cart_item_row.xml" value="0.264" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/sellingVegetables/app/src/main/res/layout/category_item_row.xml" value="0.1" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/sellingVegetables/app/src/main/res/layout/dialog_alert.xml" value="0.1078125" />
-        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/sellingVegetables/app/src/main/res/layout/fragment_cart.xml" value="0.264" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/sellingVegetables/app/src/main/res/layout/fragment_cart.xml" value="0.1" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/sellingVegetables/app/src/main/res/layout/fragment_department.xml" value="0.12760416666666666" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/sellingVegetables/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/sellingVegetables/app/src/main/res/layout/product_item_row.xml" value="0.1" />

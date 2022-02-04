@@ -18,7 +18,9 @@ import com.sellingvegetables.R;
 import com.sellingvegetables.databinding.ActivityLoginBinding;
 import com.sellingvegetables.language.Language;
 import com.sellingvegetables.model.LoginModel;
+import com.sellingvegetables.model.UserSettingsModel;
 import com.sellingvegetables.mvvm.ActivityLoginMvvm;
+import com.sellingvegetables.preferences.Preferences;
 import com.sellingvegetables.share.Common;
 import com.sellingvegetables.uis.activity_base.BaseActivity;
 import com.sellingvegetables.uis.activity_home.HomeActivity;
@@ -29,6 +31,8 @@ public class LoginActivity extends BaseActivity {
     private ActivityLoginBinding binding;
     private LoginModel model;
     private ActivityLoginMvvm activityLoginMvvm;
+    private UserSettingsModel userSettingsModel;
+    private Preferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,10 @@ public class LoginActivity extends BaseActivity {
 
 
     private void initView() {
+        preferences=Preferences.getInstance();
+        userSettingsModel=new UserSettingsModel();
+        userSettingsModel.setIs_first(true);
+        preferences.create_update_user_settings(this,userSettingsModel);
         activityLoginMvvm = ViewModelProviders.of(this).get(ActivityLoginMvvm.class);
         activityLoginMvvm.onLoginSuccess().observe(this, userModel -> {
             setUserModel(userModel);

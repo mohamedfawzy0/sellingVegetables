@@ -21,17 +21,25 @@
     <string name="total1">الإجمالي</string>
     <string name="save">حفظ</string>
     <string name="add">إضافة</string>
-    <string name="wait">Wait</string>
-    <string name="english_title">English Title</string>
-    <string name="arabic_title">Arabic Title</string>
-    <string name="gallery">Gallery</string>
-    <string name="camera">Camera</string>
-    <string name="cancel">Cancel</string>
-    <string name="ch_cat">Choose Category</string>
-    <string name="perm_image_denied">Permission image denied</string>
-    <string name="tax">Tax</string>
-    <string name="tax2">Tax</string>
-    <string name="discount2">Discount :</string>
+    <string name="wait">انتظر</string>
+    <string name="english_title">الاسم بالانجليزى</string>
+    <string name="arabic_title">الاسم بالعربى</string>
+    <string name="gallery">الصور</string>
+    <string name="camera">الكاميرا</string>
+    <string name="cancel">الغاء</string>
+    <string name="ch_cat">اختر الفسم</string>
+    <string name="perm_image_denied">لا يمكنك الوصول للصور</string>
+    <string name="tax">ضريبه</string>
+    <string name="tax2">ضريبه : </string>
+    <string name="discount2">خصم : </string>
+    <string name="suc">تم بنجاح</string>
+    <string name="customer">عميل</string>
+    <string name="invoice">فاتوره : </string>
+    <string name="date_time">تاريخ/وقت : </string>
+    <string name="client_name">اسم العميل : </string>
+    <string name="total2">الاجمالى : </string>
+    <string name="print">طباعه</string>
+    <string name="r">ر.س</string>
 
     <string-array name="langs">
         <item>العربية</item>

@@ -103,7 +103,7 @@
                             android:layout_height="match_parent"
                             android:background="@color/transparent"
                             android:gravity="start|center_vertical"
-                            android:hint="@string/discout"
+                            android:hint="@string/tax"
                             android:inputType="numberDecimal"
                             android:lines="1"
                             android:textAlignment="viewStart"
@@ -220,7 +220,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/total"
+                        android:text="@string/total1"
                         android:textColor="@color/colorPrimary"
                         android:textSize="14sp"
 
@@ -280,7 +280,6 @@
                         android:id="@+id/tvDiscount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="200"
                         android:textColor="@color/black"
                         android:textSize="14sp"
 
@@ -296,7 +295,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/total1"
+                        android:text="@string/total2"
                         android:textColor="@color/colorPrimary"
                         android:textSize="14sp"
 

@@ -2,13 +2,14 @@ plugins {
     id 'com.android.application'
 //    id 'com.google.gms.google-services'
 }
+apply plugin: 'kotlin-android'
 
 android {
 
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.apps.akkaber"
+        applicationId "com.sellingvegetables"
         minSdk 19
         targetSdk 31
         versionCode 1
@@ -78,4 +79,12 @@ dependencies {
     implementation "androidx.room:room-runtime:2.3.0"
     annotationProcessor "androidx.room:room-compiler:2.3.0"
     implementation 'com.github.bumptech.glide:glide:4.10.0'
+    implementation 'pl.allegro.finance:tradukisto:1.10.2'
+    implementation "androidx.core:core-ktx:+"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation('com.journeyapps:zxing-android-embedded:4.3.0') { transitive = false }
+    implementation 'com.google.zxing:core:3.3.3'
+    implementation project(path: ':sunmiprinterutill')
+
 }

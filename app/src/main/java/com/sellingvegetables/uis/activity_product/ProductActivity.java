@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import com.sellingvegetables.R;
 import com.sellingvegetables.adapter.ProductAdapter;
@@ -72,7 +73,7 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
         });
     }
 
-    public static void CreateDialogAlertProfile(Context context, ProductModel productModel) {
+    public  void CreateDialogAlertProfile(Context context, ProductModel productModel) {
         final AlertDialog dialog = new AlertDialog.Builder(context)
                 .create();
 
@@ -85,7 +86,7 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
                   if(!amount.isEmpty()&&!price.isEmpty()){
                       binding.edtAmount.setError(null);
                       binding.edtprice.setError(null);
-
+                      addtocart(productModel,Integer.parseInt(amount),Double.parseDouble(price));
                       dialog.dismiss();
 
                   }
@@ -122,6 +123,7 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
             add_order_model = new CreateOrderModel();
             productDetailsList = new ArrayList<>();
         }
+        add_order_model.setCustomer_name(binding.edCustomer.getText().toString());
         ItemCartModel productDetails = new ItemCartModel();
         productDetails.setQty(amount);
         productDetails.setProduct_id(productModel.getId());
@@ -130,6 +132,7 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
         productDetails.setName(productModel.getTitle());
         productDetailsList.add(productDetails);
         add_order_model.setDetails(productDetailsList);
+        Toast.makeText(this,getResources().getString(R.string.suc),Toast.LENGTH_LONG).show();
         preferences.create_update_cart_oliva(ProductActivity.this, add_order_model);
 
     }

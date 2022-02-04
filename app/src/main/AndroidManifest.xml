@@ -19,6 +19,13 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".uis.activity_invoice.InvoiceActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+
+
+        </activity>
+        <activity
             android:name=".uis.activity_add_product.AddProductActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">

@@ -36,10 +36,13 @@
                 <EditText
                     android:id="@+id/edtAmount"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="35dp"
                     android:layout_marginEnd="35dp"
                     android:inputType="number"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
                     android:background="@color/transparent"/>
             </LinearLayout>
 
@@ -70,9 +73,12 @@
                 <EditText
                     android:id="@+id/edtprice"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="35dp"
                     android:layout_marginEnd="35dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:gravity="center_vertical"
                     android:inputType="numberDecimal"
                     android:background="@color/transparent"/>
             </LinearLayout>

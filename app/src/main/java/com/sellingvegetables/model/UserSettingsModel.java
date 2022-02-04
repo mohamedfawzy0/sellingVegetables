@@ -3,23 +3,13 @@ package com.sellingvegetables.model;
 import java.io.Serializable;
 
 public class UserSettingsModel implements Serializable {
-    private boolean isLanguageSelected= false;
-    private boolean showIntroSlider = true;
+  private boolean is_first;
 
-    public boolean isLanguageSelected() {
-        return isLanguageSelected;
+    public boolean isIs_first() {
+        return is_first;
     }
 
-    public void setLanguageSelected(boolean languageSelected) {
-        isLanguageSelected = languageSelected;
+    public void setIs_first(boolean is_first) {
+        this.is_first = is_first;
     }
-    public boolean isShowIntroSlider() {
-        return showIntroSlider;
-    }
-
-    public void setShowIntroSlider(boolean showIntroSlider) {
-        this.showIntroSlider = showIntroSlider;
-    }
-
-
 }

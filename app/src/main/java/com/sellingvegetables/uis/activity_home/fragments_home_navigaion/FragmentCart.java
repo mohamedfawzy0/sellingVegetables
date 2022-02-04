@@ -36,6 +36,7 @@ import com.sellingvegetables.preferences.Preferences;
 import com.sellingvegetables.share.Common;
 import com.sellingvegetables.uis.activity_base.BaseFragment;
 import com.sellingvegetables.uis.activity_home.HomeActivity;
+import com.sellingvegetables.uis.activity_invoice.InvoiceActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,6 +56,7 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
     private AccessDatabase accessDatabase;
     private ProgressDialog dialog;
     private int pos;
+    private double id;
 
     public static FragmentCart newInstance() {
         FragmentCart fragment = new FragmentCart();
@@ -109,7 +111,15 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
 
             @Override
             public void afterTextChanged(Editable editable) {
-                tax = (total * (Double.parseDouble(editable.toString())));
+                try {
+                    tax = (total * (Double.parseDouble(binding.edTax.getText().toString()))) / 100;
+
+                }
+                catch (Exception e){
+                  tax=0;
+                }
+                discount = ((total + tax) * (Double.parseDouble(binding.edDiscount.getText().toString()))) / 100;
+
                 calculateTotal();
             }
         });
@@ -126,18 +136,31 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
 
             @Override
             public void afterTextChanged(Editable editable) {
-                discount = ((total + tax) * (Double.parseDouble(editable.toString())));
+                try {
+                    discount = ((total + tax) * (Double.parseDouble(binding.edDiscount.getText().toString()))) / 100;
+
+                }
+catch (Exception e){
+                    discount=0;
+}
                 calculateTotal();
             }
         });
         binding.btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createOrderModel.setDate(System.currentTimeMillis());
-                createOrderModel.setId(Math.random());
-                dialog.show();
-                accessDatabase.insertOrder(createOrderModel, FragmentCart.this);
+                if(createOrderModel!=null) {
+                    createOrderModel.setDate(System.currentTimeMillis());
+                    double min = 1000;
+                    double max = 1000000000;
 
+                    //Generate random int value from 50 to 100
+                    double random_int = (int) Math.floor(Math.random() * (max - min + 1) + min);
+                    id = random_int;
+                    createOrderModel.setId(id);
+                    dialog.show();
+                    accessDatabase.insertOrder(createOrderModel, FragmentCart.this);
+                }
             }
         });
     }
@@ -147,11 +170,14 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
         list.clear();
         if (createOrderModel != null) {
             list.addAll(createOrderModel.getDetails());
-            cartadpter.notifyDataSetChanged();
+            cartadpter.updateList(list);
+            //cartadpter.notifyDataSetChanged();
+            Log.e(",kkkk",list.size()+"");
 //            binding.llEmptyCart.setVisibility(View.GONE);
             calculateTotal();
 
         } else {
+            cartadpter.updateList(new ArrayList<>());
 //            binding.llEmptyCart.setVisibility(View.VISIBLE);
 //            binding.fltotal.setVisibility(View.GONE);
 
@@ -159,13 +185,13 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
     }
 
     private void calculateTotal() {
-
+        total = 0;
         for (ItemCartModel model : list) {
 
             total += model.getTotal();
         }
         binding.tvDiscount.setText(discount + "");
-        binding.tvTax.setText(discount + "");
+        binding.tvTax.setText(tax + "");
         binding.tvTotal.setText(total + "");
         binding.tvTotal2.setText((total + tax - discount) + "");
         createOrderModel.setTotal(total);
@@ -177,9 +203,10 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
 
     @Override
     public void onOrderDataInsertedSuccess(long bol) {
+        Log.e("id", id + "");
         for (int i = 0; i < list.size(); i++) {
             ItemCartModel itemCartModel = list.get(i);
-            itemCartModel.setCreate_id((int) bol);
+            itemCartModel.setCreate_id(id);
             list.set(i, itemCartModel);
         }
         createOrderModel.setDetails(list);
@@ -192,10 +219,19 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
     @Override
     public void onProductORderDataInsertedSuccess(Boolean bol) {
         dialog.dismiss();
-        list.clear();
-        cartadpter.notifyDataSetChanged();
+
         preferences.clearcart_oliva(activity);
-        updateUi();
-        Log.e("lllll",bol+"");
+        Intent intent = new Intent(activity, InvoiceActivity.class);
+        intent.putExtra("data", createOrderModel);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(preferences!=null){
+            createOrderModel=preferences.getcart_olivaData(activity);
+            updateUi();
+        }
     }
 }

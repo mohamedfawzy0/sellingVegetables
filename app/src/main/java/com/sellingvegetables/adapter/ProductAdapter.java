@@ -40,7 +40,8 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         myHolder.binding.llProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ProductActivity.CreateDialogAlertProfile(context,list.get(holder.getLayoutPosition()));
+                ProductActivity productActivity=(ProductActivity)context;
+                productActivity.CreateDialogAlertProfile(context,list.get(holder.getLayoutPosition()));
             }
         });
     }
