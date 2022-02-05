@@ -43,6 +43,9 @@
     <string name="renew_data">Renew Data</string>
     <string name="incorrect">Incorrect User Or Password</string>
     <string name="logout">Logout</string>
+    <string name="vat_no">VAT No :</string>
+    <string name="registration_no">Registration No :</string>
+    <string name="warehouse">WareHouse :</string>
 
     <string-array name="langs">
         <item>Arabic</item>

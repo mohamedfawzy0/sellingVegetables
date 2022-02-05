@@ -44,6 +44,9 @@
     <string name="renew_data">تحديث</string>
     <string name="incorrect">مستخدم او كلمة مرور خطا</string>
     <string name="logout">خروج</string>
+    <string name="vat_no">VAT NO :</string>
+    <string name="registration_no">Registration No :</string>
+    <string name="warehouse">WareHouse :</string>
 
     <string-array name="langs">
         <item>العربية</item>

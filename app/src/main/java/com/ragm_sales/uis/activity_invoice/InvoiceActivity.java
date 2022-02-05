@@ -160,7 +160,7 @@ takeScreenshot(2);
 
         ZatcaQRCodeGeneration.Builder builder = new ZatcaQRCodeGeneration.Builder();
         builder.sellerName(userModel.getData().getUser().getName()) // Shawrma House
-                .taxNumber("") // 1234567890
+                .taxNumber("123456789012345") // 1234567890
                 .invoiceDate(dateFormat.format(new Date(createOrderModel.getOrder_date_time()))) //..> 22/11/2021 03:00 am
                 .totalAmount((createOrderModel.getTotal() + createOrderModel.getTax() - createOrderModel.getDiscount()) + "") // 100
                 .taxAmount(createOrderModel.getTax() + "");
