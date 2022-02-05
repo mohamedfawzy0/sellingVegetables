@@ -42,7 +42,7 @@ public class PrintMe{
     }
 
 
-    public Bitmap convertViewToBitmap(final View mView) {
+    private Bitmap convertViewToBitmap(final View mView) {
         @SuppressLint("Range") final int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(ViewGroup.LayoutParams.MATCH_PARENT, View.MeasureSpec.UNSPECIFIED);
         @SuppressLint("Range") final int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(ViewGroup.LayoutParams.WRAP_CONTENT, View.MeasureSpec.UNSPECIFIED);
         mView.measure(widthMeasureSpec, heightMeasureSpec);

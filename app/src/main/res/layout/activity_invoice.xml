@@ -13,11 +13,11 @@
 
         <variable
             name="usermodel"
-            type="com.sellingvegetables.model.UserModel" />
+            type="com.ragm_sales.model.UserModel" />
 
         <variable
             name="model"
-            type="com.sellingvegetables.model.CreateOrderModel" />
+            type="com.ragm_sales.model.CreateOrderModel" />
 
         <variable
             name="image"

@@ -8,12 +8,12 @@
 
     <fragment
         android:id="@+id/home"
-        android:name="com.sellingvegetables.uis.activity_home.fragments_home_navigaion.FragmentHome"
+        android:name="com.ragm_sales.uis.activity_home.fragments_home_navigaion.FragmentHome"
         android:label=""
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/cart"
-        android:name="com.sellingvegetables.uis.activity_home.fragments_home_navigaion.FragmentCart"
+        android:name="com.ragm_sales.uis.activity_home.fragments_home_navigaion.FragmentCart"
         android:label=""
         tools:layout="@layout/fragment_cart" />
 

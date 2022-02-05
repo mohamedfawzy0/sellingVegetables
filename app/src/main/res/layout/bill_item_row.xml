@@ -5,7 +5,7 @@
     <data>
 <variable
     name="model"
-    type="com.sellingvegetables.model.ItemCartModel" />
+    type="com.ragm_sales.model.ItemCartModel" />
     </data>
 
 
@@ -34,6 +34,7 @@
                     android:layout_weight="1"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:singleLine="true"
                     />
            
                 <TextView
@@ -52,6 +53,7 @@
                     android:text='@{model.price+""}'
                     android:layout_gravity="center"
                     android:gravity="center"
+
                     />
            
                 <TextView

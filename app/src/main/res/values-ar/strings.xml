@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">بيع الخضار</string>
+    <string name="app_name">رقم مبيعات</string>
     <string name="field_required">حقل مطلوب</string>
     <string name="login">تسجيل الدخول</string>
     <string name="username">اسم االمستخدم</string>
@@ -40,6 +40,10 @@
     <string name="total2">الاجمالى : </string>
     <string name="print">طباعه</string>
     <string name="r">ر.س</string>
+    <string name="invoice_number">رقم الفاتوره</string>
+    <string name="renew_data">تحديث</string>
+    <string name="incorrect">مستخدم او كلمة مرور خطا</string>
+    <string name="logout">خروج</string>
 
     <string-array name="langs">
         <item>العربية</item>

@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sellingVegetables.iml" filepath="$PROJECT_DIR$/.idea/modules/sellingVegetables.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/sellingVegetables.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/sellingVegetables.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sunmiprinterutill/sellingVegetables.sunmiprinterutill.iml" filepath="$PROJECT_DIR$/.idea/modules/sunmiprinterutill/sellingVegetables.sunmiprinterutill.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ragm_sales.iml" filepath="$PROJECT_DIR$/.idea/modules/ragm_sales.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ragm_sales.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ragm_sales.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sunmiprinterutill/ragm_sales.sunmiprinterutill.iml" filepath="$PROJECT_DIR$/.idea/modules/sunmiprinterutill/ragm_sales.sunmiprinterutill.iml" />
     </modules>
   </component>
 </project>

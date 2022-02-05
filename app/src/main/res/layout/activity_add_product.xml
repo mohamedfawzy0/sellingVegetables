@@ -11,7 +11,7 @@
 
         <variable
             name="model"
-            type="com.sellingvegetables.model.AddProductModel" />
+            type="com.ragm_sales.model.AddProductModel" />
 
 
     </data>
