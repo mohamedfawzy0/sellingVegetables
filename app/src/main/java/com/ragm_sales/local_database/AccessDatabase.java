@@ -373,7 +373,7 @@ public class AccessDatabase {
         protected List<CreateOrderModel> doInBackground(String... strings) {
 
 
-            return daoInterface.getallOrders("local");
+            return daoInterface.getallOrders("local",true);
 
         }
 

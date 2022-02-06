@@ -86,6 +86,7 @@ public class HomeActivity extends BaseActivity  {
             finish();
 
         }  else {
+
             navController.popBackStack();
         }
 
