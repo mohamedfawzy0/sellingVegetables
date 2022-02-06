@@ -43,14 +43,14 @@ public class LoginActivity extends BaseActivity {
 
 
     private void initView() {
-        preferences=Preferences.getInstance();
-        userSettingsModel=new UserSettingsModel();
+        preferences = Preferences.getInstance();
+        userSettingsModel = new UserSettingsModel();
         userSettingsModel.setIs_first(true);
-        preferences.create_update_user_settings(this,userSettingsModel);
+        preferences.create_update_user_settings(this, userSettingsModel);
         activityLoginMvvm = ViewModelProviders.of(this).get(ActivityLoginMvvm.class);
         activityLoginMvvm.onLoginSuccess().observe(this, userModel -> {
             setUserModel(userModel);
-            refreshActivity(model.getLang());
+            navigateToHomActivity();
         });
 
         model = new LoginModel();
@@ -59,9 +59,16 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
+
                     model.setLang("ar");
+                    if (getLang().equals("en")) {
+                        refreshActivity(model.getLang());
+                    }
                 } else {
                     model.setLang("en");
+                    if (getLang().equals("ar")) {
+                        refreshActivity(model.getLang());
+                    }
                 }
                 binding.setModel(model);
             }
@@ -93,8 +100,9 @@ public class LoginActivity extends BaseActivity {
         Language.setNewLocale(this, lang);
         new Handler()
                 .postDelayed(() -> {
-
-                    navigateToHomActivity();
+                    Intent intent = getIntent();
+                    finish();
+                    startActivity(intent);
                 }, 500);
 
 
