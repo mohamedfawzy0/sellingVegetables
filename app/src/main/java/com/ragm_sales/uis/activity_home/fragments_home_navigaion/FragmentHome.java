@@ -227,7 +227,7 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
         @Override
         public void onClick (View view){
         Intent intent = new Intent(activity, ProductActivity.class);
-        startActivity(intent);
+        launcher.launch(intent);
     }
     });
         binding.cardReturn.setOnClickListener(new View.OnClickListener()
