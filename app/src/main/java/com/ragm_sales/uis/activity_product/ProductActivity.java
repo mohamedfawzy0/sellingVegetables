@@ -50,7 +50,7 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
     }
 
     private void initView() {
-        preferences=Preferences.getInstance();
+        preferences = Preferences.getInstance();
         accessDatabase = new AccessDatabase(this);
 
         categoryAdapter = new ProductCategoryAdapter(this);
@@ -71,9 +71,16 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
                 launcher.launch(intent);
             }
         });
+        binding.bill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setResult(RESULT_OK);
+                finish();
+            }
+        });
     }
 
-    public  void CreateDialogAlertProfile(Context context, ProductModel productModel) {
+    public void CreateDialogAlertProfile(Context context, ProductModel productModel) {
         final AlertDialog dialog = new AlertDialog.Builder(context)
                 .create();
 
@@ -81,29 +88,26 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
 
 
         binding.btnAdd.setOnClickListener(v -> {
-                  String amount=binding.edtAmount.getText().toString();
-                  String price=binding.edtprice.getText().toString();
-                  if(!amount.isEmpty()&&!price.isEmpty()){
-                      binding.edtAmount.setError(null);
-                      binding.edtprice.setError(null);
-                      addtocart(productModel,Integer.parseInt(amount),Double.parseDouble(price));
-                      dialog.dismiss();
+                    String amount = binding.edtAmount.getText().toString();
+                    String price = binding.edtprice.getText().toString();
+                    if (!amount.isEmpty() && !price.isEmpty()) {
+                        binding.edtAmount.setError(null);
+                        binding.edtprice.setError(null);
+                        addtocart(productModel, Integer.parseInt(amount), Double.parseDouble(price));
+                        dialog.dismiss();
 
-                  }
-                  else{
-                      if(amount.isEmpty()){
-                          binding.edtAmount.setError(context.getResources().getString(R.string.field_required));
-                      }
-                      else{
-                          binding.edtAmount.setError(null);
-                      }
-                      if(price.isEmpty()){
-                          binding.edtprice.setError(context.getResources().getString(R.string.field_required));
-                      }
-                      else{
-                          binding.edtprice.setError(null);
-                      }
-                  }
+                    } else {
+                        if (amount.isEmpty()) {
+                            binding.edtAmount.setError(context.getResources().getString(R.string.field_required));
+                        } else {
+                            binding.edtAmount.setError(null);
+                        }
+                        if (price.isEmpty()) {
+                            binding.edtprice.setError(context.getResources().getString(R.string.field_required));
+                        } else {
+                            binding.edtprice.setError(null);
+                        }
+                    }
                 }
 
         );
@@ -111,7 +115,8 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
         dialog.setView(binding.getRoot());
         dialog.show();
     }
-    public void addtocart(ProductModel productModel,int amount,double price) {
+
+    public void addtocart(ProductModel productModel, int amount, double price) {
         List<ItemCartModel> productDetailsList;
         CreateOrderModel add_order_model = preferences.getcart_olivaData(ProductActivity.this);
         if (add_order_model != null) {
@@ -128,14 +133,15 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
         productDetails.setQty(amount);
         productDetails.setProduct_id(productModel.getId());
         productDetails.setPrice(price);
-        productDetails.setTotal(amount*price);
+        productDetails.setTotal(amount * price);
         productDetails.setName(productModel.getTitle());
         productDetailsList.add(productDetails);
         add_order_model.setDetails(productDetailsList);
-        Toast.makeText(this,getResources().getString(R.string.suc),Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getResources().getString(R.string.suc), Toast.LENGTH_LONG).show();
         preferences.create_update_cart_oliva(ProductActivity.this, add_order_model);
 
     }
+
     @Override
     public void onCategoryDataSuccess(List<DepartmentModel> categoryModelList) {
         categoryAdapter.updateList(categoryModelList);

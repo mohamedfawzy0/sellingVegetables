@@ -55,18 +55,26 @@ public class LoginActivity extends BaseActivity {
 
         model = new LoginModel();
         binding.setModel(model);
+        model.setLang(getLang());
+        if (getLang().equals("ar")) {
+            binding.spinner.setSelection(0);
+        } else {
+            binding.spinner.setSelection(1);
+        }
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
 
-                    model.setLang("ar");
                     if (getLang().equals("en")) {
+                        model.setLang("ar");
+
                         refreshActivity(model.getLang());
                     }
                 } else {
-                    model.setLang("en");
                     if (getLang().equals("ar")) {
+                        model.setLang("en");
+
                         refreshActivity(model.getLang());
                     }
                 }

@@ -1,5 +1,7 @@
 package com.ragm_sales.uis.activity_home.fragments_home_navigaion;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -70,12 +73,17 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
     private Preferences preferences;
     private UserSettingsModel userSettingsModel;
     private List<ProductModel> productModelList;
+    private ActivityResultLauncher<Intent> launcher;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         activity = (HomeActivity) context;
-
+        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+           if(result.getResultCode()==RESULT_OK){
+               Navigation.findNavController(binding.getRoot()).navigate(R.id.cart);
+           }
+        });
     }
 
     @Override
