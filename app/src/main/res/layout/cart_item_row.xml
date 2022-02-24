@@ -5,7 +5,7 @@
     <data>
 <variable
     name="model"
-    type="com.ragm_sales.model.ItemCartModel" />
+    type="com.sooft_sales.model.ItemCartModel" />
     </data>
 
 

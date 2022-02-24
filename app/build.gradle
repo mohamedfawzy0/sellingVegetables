@@ -9,7 +9,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.ragm_sales"
+        applicationId "com.sooft_sales"
         minSdk 19
         targetSdk 31
         versionCode 1

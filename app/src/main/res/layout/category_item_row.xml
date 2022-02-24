@@ -5,7 +5,7 @@
     <data>
 <variable
     name="model"
-    type="com.ragm_sales.model.DepartmentModel" />
+    type="com.sooft_sales.model.DepartmentModel" />
     </data>
 
     <LinearLayout

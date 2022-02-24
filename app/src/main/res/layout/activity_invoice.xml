@@ -13,11 +13,11 @@
 
         <variable
             name="usermodel"
-            type="com.ragm_sales.model.UserModel" />
+            type="com.sooft_sales.model.UserModel" />
 
         <variable
             name="model"
-            type="com.ragm_sales.model.CreateOrderModel" />
+            type="com.sooft_sales.model.CreateOrderModel" />
 
         <variable
             name="image"

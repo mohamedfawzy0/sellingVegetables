@@ -11,7 +11,7 @@
 
         <variable
             name="model"
-            type="com.ragm_sales.model.AddProductModel" />
+            type="com.sooft_sales.model.AddProductModel" />
 
 
     </data>

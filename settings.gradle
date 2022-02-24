@@ -7,5 +7,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ragm_sales"
+rootProject.name = "sooft_sales"
 include ':app', ':sunmiprinterutill'
