@@ -112,7 +112,7 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
             @Override
             public void afterTextChanged(Editable editable) {
                 try {
-                    tax = ((total+discount) * (Double.parseDouble(binding.edTax.getText().toString()))) / 100;
+                    tax = ((total - discount) * (Double.parseDouble(binding.edTax.getText().toString()))) / 100;
 
                 } catch (Exception e) {
                     tax = 0;
@@ -135,13 +135,19 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
             @Override
             public void afterTextChanged(Editable editable) {
                 try {
-                    discount = ((total ) * (Double.parseDouble(binding.edDiscount.getText().toString()))) / 100;
+                    discount = ((total) * (Double.parseDouble(binding.edDiscount.getText().toString()))) / 100;
+
 
                 } catch (Exception e) {
                     discount = 0;
-                }
-                tax = ((total + discount) * (Double.parseDouble(binding.edDiscount.getText().toString()))) / 100;
 
+                }
+                try {
+                    tax = ((total - discount) * (Double.parseDouble(binding.edTax.getText().toString()))) / 100;
+
+                } catch (Exception e) {
+                    tax = 0;
+                }
                 calculateTotal();
             }
         });
