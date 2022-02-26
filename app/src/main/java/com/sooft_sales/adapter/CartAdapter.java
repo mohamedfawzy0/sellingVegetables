@@ -12,6 +12,7 @@ import com.sooft_sales.R;
 import com.sooft_sales.databinding.CartItemRowBinding;
 import com.sooft_sales.databinding.ProductItemRowBinding;
 import com.sooft_sales.model.ItemCartModel;
+import com.sooft_sales.uis.activity_home.fragments_home_navigaion.FragmentCart;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private List<ItemCartModel> list;
     private Context context;
     private LayoutInflater inflater;
+    private FragmentCart fragmentCart;
 
     public CartAdapter(Context context) {
         this.context = context;
@@ -36,6 +38,9 @@ public class CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MyHolder myHolder=(MyHolder) holder;
         myHolder.binding.setModel(list.get(position));
+        myHolder.binding.llRemove.setOnClickListener(v -> {
+            fragmentCart.deleteItem(myHolder.getAdapterPosition());
+        });
     }
 
     @Override

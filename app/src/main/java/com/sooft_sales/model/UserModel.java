@@ -14,9 +14,14 @@ public class UserModel extends StatusResponse {
         private String access_token;
         private String token_type;
         private String expires_in;
+        private Setting setting;
 
         public User getUser() {
             return user;
+        }
+
+        public Setting getSetting() {
+            return setting;
         }
 
         public String getAccess_token() {
@@ -62,6 +67,48 @@ public class UserModel extends StatusResponse {
 
             public String getLang() {
                 return lang;
+            }
+        }
+        public class Setting implements Serializable{
+            private String id;
+            private String vat;
+            private String name_ar;
+            private String name_en;
+            private String address_ar;
+            private String address_en;
+            private String commercial_number;
+            private String logo;
+
+            public String getId() {
+                return id;
+            }
+
+            public String getVat() {
+                return vat;
+            }
+
+            public String getName_ar() {
+                return name_ar;
+            }
+
+            public String getName_en() {
+                return name_en;
+            }
+
+            public String getAddress_ar() {
+                return address_ar;
+            }
+
+            public String getAddress_en() {
+                return address_en;
+            }
+
+            public String getCommercial_number() {
+                return commercial_number;
+            }
+
+            public String getLogo() {
+                return logo;
             }
         }
     }

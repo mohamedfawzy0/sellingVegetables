@@ -51,6 +51,7 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
     private List<ItemCartModel> list;
     private CreateOrderModel createOrderModel;
     private double total, tax, discount;
+    private boolean isDataChanged = false;
     private Preferences preferences;
     private UserModel userModel;
     private AccessDatabase accessDatabase;
@@ -204,6 +205,12 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
 
             total += model.getTotal();
         }
+        try {
+//            tax=((total-discount)*(Double.parseDouble()));
+
+        }catch (Exception e){
+            tax=0;
+        }
         binding.tvDiscount.setText(discount + "");
         binding.tvTax.setText(tax + "");
         binding.tvTotal.setText(total + "");
@@ -248,4 +255,19 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
             updateUi();
         }
     }
+
+    public void deleteItem(int adapterPosition) {
+        list.remove(adapterPosition);
+        cartadpter.notifyItemRemoved(adapterPosition);
+        createOrderModel.setDetails(list);
+        preferences.createUpdateCartData(activity,createOrderModel);
+        isDataChanged = true;
+        calculateTotal();
+        if (list.size() == 0) {
+
+
+            preferences.clearCart(activity);
+        }
+    }
+
 }

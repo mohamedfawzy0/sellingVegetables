@@ -84,13 +84,33 @@
                     android:layout_height="50dp"
                     android:background="@color/colorPrimary"
                     />
-
+               <LinearLayout
+                   android:id="@+id/llRemove"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                   android:gravity="center"
+                   android:layout_weight="1">
+                   <ImageView
+                       android:layout_width="28dp"
+                       android:layout_height="28dp"
+                       android:layout_gravity="center"
+                       android:src="@drawable/ic_remove"/>
+               </LinearLayout>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="50dp"
+                    android:background="@color/colorPrimary"
+                    />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorPrimary"
                 />
+
+
         </LinearLayout>
 
     </FrameLayout>

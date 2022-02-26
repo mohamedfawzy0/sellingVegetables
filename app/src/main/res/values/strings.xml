@@ -46,6 +46,7 @@
     <string name="vat_no">VAT No :</string>
     <string name="registration_no">Registration No :</string>
     <string name="warehouse">WareHouse :</string>
+    <string name="delete">delete</string>
 
     <string-array name="langs">
         <item>عربى</item>

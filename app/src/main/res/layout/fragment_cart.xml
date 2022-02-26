@@ -194,7 +194,17 @@
                                 android:layout_width="1dp"
                                 android:layout_height="50dp"
                                 android:background="@color/colorPrimary" />
-
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/delete" />
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="50dp"
+                                android:background="@color/colorPrimary" />
                         </LinearLayout>
 
                         <View

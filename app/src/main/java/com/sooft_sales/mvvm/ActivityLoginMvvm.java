@@ -36,8 +36,8 @@ public class ActivityLoginMvvm extends AndroidViewModel {
 
     }
 
-    public LiveData<UserModel> onLoginSuccess(){
-        if (onLoginSuccess==null){
+    public LiveData<UserModel> onLoginSuccess() {
+        if (onLoginSuccess == null) {
             onLoginSuccess = new MutableLiveData<>();
         }
         return onLoginSuccess;
@@ -48,38 +48,37 @@ public class ActivityLoginMvvm extends AndroidViewModel {
         ProgressDialog dialog = Common.createProgressDialog(context, context.getResources().getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
-        Api.getService(Tags.base_url).login(model.getUsername(),model.getLang(), model.getPassword())
+        Api.getService(Tags.base_url).login(model.getUsername(), model.getLang(), model.getPassword())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<Response<UserModel>>() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-                disposable.add(d);
-            }
-
-            @Override
-            public void onSuccess(@NonNull Response<UserModel> userModelResponse) {
-                dialog.dismiss();
-Log.e("jjjj",userModelResponse.code()+"");
-                if (userModelResponse.isSuccessful()) {
-                    if (userModelResponse.body().getCode() == 200&&userModelResponse.body().getData()!=null) {
-
-                        onLoginSuccess.setValue(userModelResponse.body());
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        disposable.add(d);
                     }
-                    else {
-                        Toast.makeText(context, context.getResources().getString(R.string.incorrect),Toast.LENGTH_LONG).show();
+
+                    @Override
+                    public void onSuccess(@NonNull Response<UserModel> userModelResponse) {
+                        dialog.dismiss();
+                        Log.e("jjjj", userModelResponse.code() + "");
+                        if (userModelResponse.isSuccessful()) {
+                            if (userModelResponse.body().getCode() == 200 && userModelResponse.body().getData() != null) {
+
+                                onLoginSuccess.setValue(userModelResponse.body());
+                            } else {
+                                Toast.makeText(context, context.getResources().getString(R.string.incorrect), Toast.LENGTH_LONG).show();
+                            }
+                        }
+
                     }
-                }
 
-            }
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        dialog.dismiss();
+                        Log.e("jjjj", e.toString() + "");
 
-            @Override
-            public void onError(@NonNull Throwable e) {
-                dialog.dismiss();
-                Log.e("jjjj",e.toString()+"");
-
-            }
-        });
+                    }
+                });
     }
 
 

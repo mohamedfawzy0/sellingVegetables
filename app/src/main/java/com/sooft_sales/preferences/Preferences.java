@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.sooft_sales.model.CreateOrderModel;
 import com.sooft_sales.model.UserModel;
 import com.sooft_sales.model.UserSettingsModel;
+import com.sooft_sales.uis.activity_home.fragments_home_navigaion.FragmentCart;
 
 public class Preferences {
 
@@ -117,6 +118,21 @@ public class Preferences {
 
     public void clearcart_oliva(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("cart_oliva", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.clear();
+        edit.apply();
+    }
+
+    public void createUpdateCartData(Context context, CreateOrderModel createOrderModel) {
+        SharedPreferences preferences = context.getSharedPreferences("cart", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String data = gson.toJson(createOrderModel);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("data", data);
+        editor.apply();
+    }
+    public void clearCart(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("cart", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = preferences.edit();
         edit.clear();
         edit.apply();
