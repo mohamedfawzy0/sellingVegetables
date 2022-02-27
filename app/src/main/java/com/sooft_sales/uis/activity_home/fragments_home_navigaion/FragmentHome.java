@@ -140,6 +140,13 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
                     accessDatabase.insertCategory(departmentModels, FragmentHome.this);
                     //binding.cardNoData.setVisibility(View.GONE);
                 }
+                else{
+                    index=0;
+                    pos=0;
+                    binding.progBar.setVisibility(View.GONE);
+                    binding.nested.setVisibility(View.VISIBLE);
+                //   fragmentHomeMvvm.getProducts(getUserModel());
+                }
             }
         });
 
@@ -151,6 +158,12 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
 
                     FragmentHome.this.productModels = productModels;
                     setImageBitmap();
+                }
+                else {
+                    index=0;
+                    pos=0;
+                    binding.progBar.setVisibility(View.GONE);
+                    binding.nested.setVisibility(View.VISIBLE);
                 }
             }
         });

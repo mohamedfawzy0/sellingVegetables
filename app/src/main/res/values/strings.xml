@@ -47,6 +47,7 @@
     <string name="registration_no">Registration No :</string>
     <string name="warehouse">WareHouse :</string>
     <string name="delete">delete</string>
+    <string name="ch_imge">Choose Image</string>
 
     <string-array name="langs">
         <item>عربى</item>

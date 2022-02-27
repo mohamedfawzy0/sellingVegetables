@@ -48,6 +48,7 @@
     <string name="registration_no">رقم التسجيل :</string>
     <string name="warehouse">مستودع :</string>
     <string name="delete">حذف</string>
+    <string name="ch_imge">اختر الصوره</string>
 
     <string-array name="langs">
         <item>العربية</item>

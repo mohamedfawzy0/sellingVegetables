@@ -80,8 +80,9 @@ public class AddProductActivity extends BaseActivity implements DataBaseInterfac
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(departmentModelList.size()>0){
                 addProductModel.setCategory_id(departmentModelList.get(i).getId());
-            }
+            }}
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -272,9 +273,10 @@ public class AddProductActivity extends BaseActivity implements DataBaseInterfac
 
     @Override
     public void onLastProductDataSuccess(ProductModel productModel) {
+        if(productModel!=null){
         id = productModel.getId() + 1;
         accessDatabase.getCategory(this);
-    }
+    }}
 
     public void setImageBitmap(ProductModel productModel) {
 

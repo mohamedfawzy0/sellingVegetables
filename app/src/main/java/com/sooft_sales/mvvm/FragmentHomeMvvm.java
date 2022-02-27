@@ -31,6 +31,7 @@ import com.sooft_sales.share.Common;
 import com.sooft_sales.tags.Tags;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -57,11 +58,11 @@ public class FragmentHomeMvvm extends AndroidViewModel {
     private MutableLiveData<Boolean> back;
 
 
-
     public FragmentHomeMvvm(@NonNull Application application) {
         super(application);
         context = application.getApplicationContext();
     }
+
     public LiveData<Boolean> getSend() {
         if (send == null) {
             send = new MutableLiveData<>();
@@ -69,6 +70,7 @@ public class FragmentHomeMvvm extends AndroidViewModel {
 
         return send;
     }
+
     public LiveData<Boolean> getBack() {
         if (back == null) {
             back = new MutableLiveData<>();
@@ -76,26 +78,27 @@ public class FragmentHomeMvvm extends AndroidViewModel {
 
         return back;
     }
+
     public MutableLiveData<List<ProductModel>> getProductList() {
         if (listMutableLiveData == null) {
             listMutableLiveData = new MutableLiveData<>();
         }
         return listMutableLiveData;
     }
+
     public MutableLiveData<List<CreateOrderModel>> getOrderList() {
         if (mutableLiveData == null) {
             mutableLiveData = new MutableLiveData<>();
         }
         return mutableLiveData;
     }
+
     public MutableLiveData<ProductModel> getProduct() {
         if (productMutableLiveData == null) {
             productMutableLiveData = new MutableLiveData<>();
         }
         return productMutableLiveData;
     }
-
-
 
 
     public LiveData<List<DepartmentModel>> getCategoryData() {
@@ -105,8 +108,6 @@ public class FragmentHomeMvvm extends AndroidViewModel {
         }
         return departmentLivData;
     }
-
-
 
 
     public void getDepartment(UserModel userModel) {
@@ -125,12 +126,19 @@ public class FragmentHomeMvvm extends AndroidViewModel {
                     public void onSuccess(@NonNull Response<DepartmentDataModel> response) {
 
                         if (response.isSuccessful() && response.body() != null) {
+                           // Log.e("jjj",response.body().getCode()+"");
                             if (response.body().getCode() == 200) {
                                 List<DepartmentModel> list = response.body().getData();
                                 if (list.size() > 0) {
                                     departmentLivData.setValue(list);
+                                } else {
+                                    departmentLivData.setValue(new ArrayList<>());
+
                                 }
 
+                            }
+                            else {
+                                departmentLivData.setValue(new ArrayList<>());
 
                             }
                         }
@@ -156,11 +164,12 @@ public class FragmentHomeMvvm extends AndroidViewModel {
                     public void onSubscribe(@NonNull Disposable d) {
                         disposable.add(d);
                     }
+
                     public void onSuccess(@NonNull Response<ProductDataModel> response) {
-                        Log.e("dddd",response.code()+"");
+                        Log.e("dddd", response.code() + "");
 
                         if (response.isSuccessful() && response.body() != null) {
-                            Log.e("dddd",response.body().getCode()+"");
+                            Log.e("dddd", response.body().getCode() + "");
                             if (response.body().getCode() == 200) {
                                 // List<ProductModel> list = response.body().getData();
                                 listMutableLiveData.setValue(response.body().getData());
@@ -170,10 +179,11 @@ public class FragmentHomeMvvm extends AndroidViewModel {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-Log.e("kkkk",e.toString());
+                        Log.e("kkkk", e.toString());
                     }
                 });
     }
+
     public void getOrders(UserModel userModel) {
 
 
@@ -186,11 +196,12 @@ Log.e("kkkk",e.toString());
                     public void onSubscribe(@NonNull Disposable d) {
                         disposable.add(d);
                     }
+
                     public void onSuccess(@NonNull Response<OrderDataModel> response) {
-                        Log.e("dddd",response.code()+"");
+                        Log.e("dddd", response.code() + "");
 
                         if (response.isSuccessful() && response.body() != null) {
-                            Log.e("dddd",response.body().getCode()+"");
+                            Log.e("dddd", response.body().getCode() + "");
                             if (response.body().getCode() == 200) {
                                 // List<ProductModel> list = response.body().getData();
                                 mutableLiveData.setValue(response.body().getData());
@@ -200,18 +211,19 @@ Log.e("kkkk",e.toString());
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        Log.e("kkkk",e.toString());
+                        Log.e("kkkk", e.toString());
                     }
                 });
     }
+
     public void sendOrder(CreateOrderModel cartDataModel, UserModel userModel) {
         cartDataModel.setLocal(null);
 
         Gson gson = new Gson();
         String user_data = gson.toJson(cartDataModel);
-        Log.e("user",user_data);
+        Log.e("user", user_data);
         Api.getService(Tags.base_url)
-                .sendOrder(userModel.getData().getAccess_token(),cartDataModel)
+                .sendOrder(userModel.getData().getAccess_token(), cartDataModel)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
 
@@ -223,7 +235,7 @@ Log.e("kkkk",e.toString());
 
                     @Override
                     public void onSuccess(@NonNull Response<StatusResponse> response) {
-                     //   Log.e("order",response.code()+""+response.body().getCode());
+                        //   Log.e("order",response.code()+""+response.body().getCode());
 //                        Log.e("slkdkdkkdk", response.code() + ""+cartDataModel.getLatitude()+" "+cartDataModel.getLongitude()+" "+response.body().getStatus());
                         if (response.isSuccessful() && response.body() != null) {
                             if (response.body().getCode() == 200) {
@@ -242,10 +254,11 @@ Log.e("kkkk",e.toString());
                 });
 
     }
+
     public void backOrder(CreateOrderModel cartDataModel, UserModel userModel) {
 
         Api.getService(Tags.base_url)
-                .backOrder(userModel.getData().getAccess_token(),cartDataModel.getId()+"")
+                .backOrder(userModel.getData().getAccess_token(), cartDataModel.getId() + "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
 
@@ -281,22 +294,23 @@ Log.e("kkkk",e.toString());
         super.onCleared();
         disposable.clear();
     }
-    public void addproduct(Context context, ProductModel model,UserModel userModel) {
-        RequestBody ar_part,en_part;
-       if(userModel.getData().getUser().getLang().equals("ar")){
+
+    public void addproduct(Context context, ProductModel model, UserModel userModel) {
+        RequestBody ar_part, en_part;
+        if (userModel.getData().getUser().getLang().equals("ar")) {
             ar_part = Common.getRequestBodyText(model.getTitle());
-         en_part = Common.getRequestBodyText(model.getTitle2());}
-       else{
-           en_part = Common.getRequestBodyText(model.getTitle());
-           ar_part = Common.getRequestBodyText(model.getTitle2());
-       }
-        RequestBody cat_part = Common.getRequestBodyText(model.getCategory_id()+"");
+            en_part = Common.getRequestBodyText(model.getTitle2());
+        } else {
+            en_part = Common.getRequestBodyText(model.getTitle());
+            ar_part = Common.getRequestBodyText(model.getTitle2());
+        }
+        RequestBody cat_part = Common.getRequestBodyText(model.getCategory_id() + "");
 
 
         MultipartBody.Part image = Common.getMultiPart(context, getUriFromBitmap(model.getImageBitmap()), "photo");
 
 
-        Api.getService(Tags.base_url).addPeoduct(userModel.getData().getAccess_token(),ar_part, en_part, cat_part,  image).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).unsubscribeOn(Schedulers.io()).subscribe(new SingleObserver<Response<SingleProductDataModel>>() {
+        Api.getService(Tags.base_url).addPeoduct(userModel.getData().getAccess_token(), ar_part, en_part, cat_part, image).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).unsubscribeOn(Schedulers.io()).subscribe(new SingleObserver<Response<SingleProductDataModel>>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
                 disposable.add(d);
@@ -305,7 +319,7 @@ Log.e("kkkk",e.toString());
             @Override
             public void onSuccess(@NonNull Response<SingleProductDataModel> singleProductDataModelResponse) {
                 if (singleProductDataModelResponse.isSuccessful()) {
-                    Log.e("kkkk",singleProductDataModelResponse.body().getCode()+"");
+                    Log.e("kkkk", singleProductDataModelResponse.body().getCode() + "");
                     if (singleProductDataModelResponse.body().getCode() == 200) {
 
                         productMutableLiveData.postValue(singleProductDataModelResponse.body().getData());
@@ -315,7 +329,7 @@ Log.e("kkkk",e.toString());
 
             @Override
             public void onError(@NonNull Throwable e) {
-Log.e("hhhh",e.toString());
+                Log.e("hhhh", e.toString());
             }
         });
 

@@ -29,7 +29,7 @@ public class AddProductModel extends BaseObservable {
     {
         if (!english_title.trim().isEmpty()&&
                 !arabic_title.trim().isEmpty()
-                &&category_id!=0
+                &&category_id!=0&&image!=null
         ){
             error_english_title.set(null);
             error_arabic_title.set(null);
@@ -56,6 +56,9 @@ public class AddProductModel extends BaseObservable {
                 {
                     error_arabic_title.set(null);
 
+                }
+                if(image==null){
+                    Toast.makeText(context,context.getResources().getString(R.string.ch_imge),Toast.LENGTH_LONG).show();
                 }
 if(category_id==0){
     Toast.makeText(context,context.getResources().getString(R.string.ch_cat),Toast.LENGTH_LONG).show();
