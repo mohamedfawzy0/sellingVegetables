@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sooft_sales.R;
@@ -20,10 +21,11 @@ public class CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private List<ItemCartModel> list;
     private Context context;
     private LayoutInflater inflater;
-    private FragmentCart fragmentCart;
+    private Fragment fragment;
 
-    public CartAdapter(Context context) {
+    public CartAdapter(Context context,Fragment fragment) {
         this.context = context;
+        this.fragment=fragment;
         inflater = LayoutInflater.from(context);
     }
 
@@ -39,6 +41,7 @@ public class CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         MyHolder myHolder=(MyHolder) holder;
         myHolder.binding.setModel(list.get(position));
         myHolder.binding.llRemove.setOnClickListener(v -> {
+            FragmentCart fragmentCart=(FragmentCart) fragment;
             fragmentCart.deleteItem(myHolder.getAdapterPosition());
         });
     }

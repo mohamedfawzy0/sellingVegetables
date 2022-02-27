@@ -95,7 +95,7 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
         dialog.setCanceledOnTouchOutside(false);
         userModel = preferences.getUserData(activity);
         createOrderModel = preferences.getcart_olivaData(activity);
-        cartadpter = new CartAdapter(activity);
+        cartadpter = new CartAdapter(activity,this);
         binding.recviewcart.setLayoutManager(new GridLayoutManager(activity, 1));
         binding.recviewcart.setAdapter(cartadpter);
         updateUi();
@@ -206,10 +206,18 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
             total += model.getTotal();
         }
         try {
-//            tax=((total-discount)*(Double.parseDouble()));
+            discount = ((total) * (Double.parseDouble(binding.edDiscount.getText().toString()))) / 100;
 
-        }catch (Exception e){
-            tax=0;
+
+        } catch (Exception e) {
+            discount = 0;
+
+        }
+        try {
+            tax = ((total - discount) * (Double.parseDouble(binding.edTax.getText().toString()))) / 100;
+
+        } catch (Exception e) {
+            tax = 0;
         }
         binding.tvDiscount.setText(discount + "");
         binding.tvTax.setText(tax + "");
