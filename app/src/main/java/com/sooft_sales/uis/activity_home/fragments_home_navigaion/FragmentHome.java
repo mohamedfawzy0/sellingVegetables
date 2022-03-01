@@ -80,9 +80,9 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
         super.onAttach(context);
         activity = (HomeActivity) context;
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-           if(result.getResultCode()==RESULT_OK){
-               Navigation.findNavController(binding.getRoot()).navigate(R.id.cart);
-           }
+            if (result.getResultCode() == RESULT_OK) {
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.cart);
+            }
         });
     }
 
@@ -125,7 +125,7 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
     }
 
     private void initView() {
-
+        checkpermission();
         accessDatabase = new AccessDatabase(activity);
         preferences = Preferences.getInstance();
         userSettingsModel = preferences.getUserSettings(activity);
@@ -139,13 +139,12 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
                     Log.e("kkkk", departmentModels.size() + "");
                     accessDatabase.insertCategory(departmentModels, FragmentHome.this);
                     //binding.cardNoData.setVisibility(View.GONE);
-                }
-                else{
-                    index=0;
-                    pos=0;
+                } else {
+                    index = 0;
+                    pos = 0;
                     binding.progBar.setVisibility(View.GONE);
                     binding.nested.setVisibility(View.VISIBLE);
-                //   fragmentHomeMvvm.getProducts(getUserModel());
+                    //   fragmentHomeMvvm.getProducts(getUserModel());
                 }
             }
         });
@@ -158,10 +157,9 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
 
                     FragmentHome.this.productModels = productModels;
                     setImageBitmap();
-                }
-                else {
-                    index=0;
-                    pos=0;
+                } else {
+                    index = 0;
+                    pos = 0;
                     binding.progBar.setVisibility(View.GONE);
                     binding.nested.setVisibility(View.VISIBLE);
                 }
@@ -173,8 +171,8 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
                 if (createOrderModels != null && createOrderModels.size() > 0) {
                     insertOrders(createOrderModels);
                 } else {
-                    index=0;
-                    pos=0;
+                    index = 0;
+                    pos = 0;
                     binding.progBar.setVisibility(View.GONE);
                     binding.nested.setVisibility(View.VISIBLE);
                 }
@@ -209,90 +207,90 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
                 if (aBoolean) {
                     pos += 1;
                     if (pos < createOrderModels.size()) {
-                        if (createOrderModels.get(pos).getLocal()!=null&&createOrderModels.get(pos).getLocal().equals("local")) {
+                        if (createOrderModels.get(pos).getLocal() != null && createOrderModels.get(pos).getLocal().equals("local")) {
                             fragmentHomeMvvm.sendOrder(createOrderModels.get(pos), getUserModel());
                         } else {
                             pos += 1;
                             uploadOrders();
                         }
+                    } else {
+                        pos = 0;
+                        backOrder();
                     }
-                 else {
-                    pos = 0;
-                    backOrder();
                 }
             }
-        }
-    });
+        });
         fragmentHomeMvvm.getBack().
 
-    observe(activity, new androidx.lifecycle.Observer<Boolean>() {
-        @Override
-        public void onChanged (Boolean aBoolean){
-            if (aBoolean) {
-                pos += 1;
-                backOrder();
+                observe(activity, new androidx.lifecycle.Observer<Boolean>() {
+                    @Override
+                    public void onChanged(Boolean aBoolean) {
+                        if (aBoolean) {
+                            pos += 1;
+                            backOrder();
+                        }
+                    }
+                });
+        binding.cardsales.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity, ProductActivity.class);
+                launcher.launch(intent);
             }
+        });
+        binding.cardReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity, ReturnInvoiceActivity.class);
+                startActivity(intent);
+            }
+        });
+        binding.cardNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                index = 0;
+                pos = 0;
+                binding.progBar.setVisibility(View.VISIBLE);
+                binding.nested.setVisibility(View.GONE);
+                accessDatabase.getLocalProduct(FragmentHome.this, "local");
+            }
+        });
+        binding.cardLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                preferences.clearUserData(activity);
+                activity.logout();
+            }
+        });
+        if (userSettingsModel == null || userSettingsModel.isIs_first()) {
+            if (userSettingsModel == null) {
+                userSettingsModel = new UserSettingsModel();
+            }
+            userSettingsModel.setIs_first(false);
+            preferences.create_update_user_settings(activity, userSettingsModel);
+            fragmentHomeMvvm.getDepartment(getUserModel());
+
+        } else {
+            index = 0;
+            pos = 0;
+            binding.progBar.setVisibility(View.GONE);
+            binding.nested.setVisibility(View.VISIBLE);
         }
-    });
-        binding.cardsales.setOnClickListener(new View.OnClickListener()
 
-    {
-        @Override
-        public void onClick (View view){
-        Intent intent = new Intent(activity, ProductActivity.class);
-        launcher.launch(intent);
     }
-    });
-        binding.cardReturn.setOnClickListener(new View.OnClickListener()
 
-    {
-        @Override
-        public void onClick (View view){
-        Intent intent = new Intent(activity, ReturnInvoiceActivity.class);
-        startActivity(intent);
-    }
-    });
-        binding.cardNew.setOnClickListener(new View.OnClickListener()
-
-    {
-        @Override
-        public void onClick (View view){
-        index = 0;
-        pos = 0;
-        binding.progBar.setVisibility(View.VISIBLE);
-        binding.nested.setVisibility(View.GONE);
-        accessDatabase.getLocalProduct(FragmentHome.this, "local");
-    }
-    });
-        binding.cardLogout.setOnClickListener(new View.OnClickListener()
-
-    {
-        @Override
-        public void onClick (View view){
-        preferences.clearUserData(activity);
-        activity.logout();
-    }
-    });
-        if(userSettingsModel ==null||userSettingsModel.isIs_first())
-
-    {
-        if (userSettingsModel == null) {
-            userSettingsModel = new UserSettingsModel();
+    private void checkpermission() {
+        if (!getUserModel().getData().getPermissions().contains("ordersBack")) {
+            binding.cardReturn.setVisibility(View.GONE);
         }
-        userSettingsModel.setIs_first(false);
-        preferences.create_update_user_settings(activity, userSettingsModel);
-        fragmentHomeMvvm.getDepartment(getUserModel());
+        if (!getUserModel().getData().getPermissions().contains("productsIndex")) {
+            binding.cardsales.setVisibility(View.GONE);
+        }
+        if (!getUserModel().getData().getPermissions().contains("productsIndex")&&!getUserModel().getData().getPermissions().contains("ordersBack")) {
+            binding.cardNew.setVisibility(View.GONE);
+        }
 
-    } else
-
-    {
-        index=0;
-        pos=0;
-        binding.progBar.setVisibility(View.GONE);
-        binding.nested.setVisibility(View.VISIBLE);
     }
-
-}
 
     private void backOrder() {
         if (pos < createOrderModels.size()) {
@@ -406,8 +404,8 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
         if (pos < createOrderModels.size()) {
             accessDatabase.insertOrder(createOrderModels.get(pos), this);
         } else {
-            index=0;
-            pos=0;
+            index = 0;
+            pos = 0;
             binding.progBar.setVisibility(View.GONE);
             binding.nested.setVisibility(View.VISIBLE);
         }
@@ -477,7 +475,7 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
 
     private void uploadOrders() {
         if (pos < createOrderModels.size()) {
-            if (createOrderModels.get(pos).getLocal()!=null&&createOrderModels.get(pos).getLocal().equals("local")) {
+            if (createOrderModels.get(pos).getLocal() != null && createOrderModels.get(pos).getLocal().equals("local")) {
                 fragmentHomeMvvm.sendOrder(createOrderModels.get(pos), getUserModel());
             } else {
                 pos += 1;

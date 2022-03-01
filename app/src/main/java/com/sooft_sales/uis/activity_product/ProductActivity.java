@@ -78,9 +78,23 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
                 finish();
             }
         });
+        checkpermisions();
+    }
+
+    private void checkpermisions() {
+        if (!getUserModel().getData().getPermissions().contains("productCreate")) {
+            binding.llMap.setVisibility(View.GONE);
+        }
+        if (!getUserModel().getData().getPermissions().contains("ordersStore")) {
+            binding.bill.setVisibility(View.GONE);
+        }
     }
 
     public void CreateDialogAlertProfile(Context context, ProductModel productModel) {
+        if (!getUserModel().getData().getPermissions().contains("ordersStore")) {
+           Toast.makeText(this, R.string.per,Toast.LENGTH_LONG).show();
+        }
+        else{
         final AlertDialog dialog = new AlertDialog.Builder(context)
                 .create();
 
@@ -114,7 +128,7 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
         dialog.setCanceledOnTouchOutside(false);
         dialog.setView(binding.getRoot());
         dialog.show();
-    }
+    }}
 
     public void addtocart(ProductModel productModel, int amount, double price) {
         List<ItemCartModel> productDetailsList;

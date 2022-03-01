@@ -171,6 +171,12 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
                 }
             }
         });
+        if (!getUserModel().getData().getPermissions().contains("ordersStore")) {
+            binding.nested.setVisibility(View.GONE);
+        }
+        if (!getUserModel().getData().getPermissions().contains("productsIndex")) {
+            binding.nested.setVisibility(View.GONE);
+        }
     }
 
 

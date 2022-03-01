@@ -1,6 +1,7 @@
 package com.sooft_sales.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class UserModel extends StatusResponse {
     private Data data;
@@ -15,6 +16,7 @@ public class UserModel extends StatusResponse {
         private String token_type;
         private String expires_in;
         private Setting setting;
+        private List<String> permissions;
 
         public User getUser() {
             return user;
@@ -36,8 +38,11 @@ public class UserModel extends StatusResponse {
             return expires_in;
         }
 
+        public List<String> getPermissions() {
+            return permissions;
+        }
 
-        public class User implements Serializable{
+        public class User implements Serializable {
             private int id;
             private String name;
             private String user_name;
@@ -69,7 +74,8 @@ public class UserModel extends StatusResponse {
                 return lang;
             }
         }
-        public class Setting implements Serializable{
+
+        public class Setting implements Serializable {
             private String id;
             private String vat;
             private String name_ar;

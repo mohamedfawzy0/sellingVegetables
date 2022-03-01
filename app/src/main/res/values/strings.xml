@@ -48,6 +48,7 @@
     <string name="warehouse">WareHouse :</string>
     <string name="delete">delete</string>
     <string name="ch_imge">Choose Image</string>
+    <string name="per">"Dont Have Permission "</string>
 
     <string-array name="langs">
         <item>عربى</item>
