@@ -60,9 +60,21 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
         productAdapter = new ProductAdapter(this);
         binding.recyclerProduct.setLayoutManager(new GridLayoutManager(this, 2));
         binding.recyclerProduct.setAdapter(productAdapter);
-        accessDatabase.getCategory(this);
-        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        try {
             accessDatabase.getCategory(this);
+
+        }
+        catch (Exception e){
+
+        }
+        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+           try {
+               accessDatabase.getCategory(this);
+
+           }
+           catch (Exception e){
+
+           }
         });
         binding.llMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +144,7 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
 
     public void addtocart(ProductModel productModel, int amount, double price) {
         List<ItemCartModel> productDetailsList;
-        CreateOrderModel add_order_model = preferences.getcart_olivaData(ProductActivity.this);
+        CreateOrderModel add_order_model = preferences.getcart_softData(ProductActivity.this);
         if (add_order_model != null) {
             productDetailsList = add_order_model.getDetails();
             if (productDetailsList == null) {
@@ -152,7 +164,7 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
         productDetailsList.add(productDetails);
         add_order_model.setDetails(productDetailsList);
         Toast.makeText(this, getResources().getString(R.string.suc), Toast.LENGTH_LONG).show();
-        preferences.create_update_cart_oliva(ProductActivity.this, add_order_model);
+        preferences.create_update_cart_soft(ProductActivity.this, add_order_model);
 
     }
 
@@ -160,7 +172,13 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
     public void onCategoryDataSuccess(List<DepartmentModel> categoryModelList) {
         categoryAdapter.updateList(categoryModelList);
         if (categoryModelList.size() > 0) {
-            accessDatabase.getProduct(this, categoryModelList.get(0).getId() + "");
+            try {
+                accessDatabase.getProduct(this, categoryModelList.get(0).getId() + "");
+
+            }
+            catch (Exception e){
+
+            }
         }
     }
 
@@ -175,7 +193,12 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
     }
 
     public void show(int id) {
-        accessDatabase.getProduct(this, id + "");
+try {
+    accessDatabase.getProduct(this, id + "");
 
+}
+catch (Exception e){
+
+}
     }
 }

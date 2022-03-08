@@ -80,9 +80,10 @@ public class AddProductActivity extends BaseActivity implements DataBaseInterfac
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(departmentModelList.size()>0){
-                addProductModel.setCategory_id(departmentModelList.get(i).getId());
-            }}
+                if (departmentModelList.size() > 0) {
+                    addProductModel.setCategory_id(departmentModelList.get(i).getId());
+                }
+            }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -162,7 +163,12 @@ public class AddProductActivity extends BaseActivity implements DataBaseInterfac
                 }
             }
         });
-        accessDatabase.getlastProduct(this);
+        try {
+            accessDatabase.getlastProduct(this);
+
+        } catch (Exception e) {
+
+        }
     }
 
     public void openSheet() {
@@ -273,10 +279,16 @@ public class AddProductActivity extends BaseActivity implements DataBaseInterfac
 
     @Override
     public void onLastProductDataSuccess(ProductModel productModel) {
-        if(productModel!=null){
-        id = productModel.getId() + 1;
-        accessDatabase.getCategory(this);
-    }}
+        if (productModel != null) {
+            id = productModel.getId() + 1;
+            try {
+                accessDatabase.getCategory(this);
+
+            } catch (Exception e) {
+
+            }
+        }
+    }
 
     public void setImageBitmap(ProductModel productModel) {
 
@@ -290,8 +302,12 @@ public class AddProductActivity extends BaseActivity implements DataBaseInterfac
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
                         resource.compress(Bitmap.CompressFormat.JPEG, 10, stream);
                         productModel.setImageBitmap(stream.toByteArray());
+                        try {
+                            accessDatabase.insertSingleProduct(productModel, AddProductActivity.this);
 
-                        accessDatabase.insertSingleProduct(productModel, AddProductActivity.this);
+                        } catch (Exception e) {
+
+                        }
                         finish();
                     }
 

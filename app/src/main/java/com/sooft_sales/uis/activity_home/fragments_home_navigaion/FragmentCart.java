@@ -94,7 +94,7 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         userModel = preferences.getUserData(activity);
-        createOrderModel = preferences.getcart_olivaData(activity);
+        createOrderModel = preferences.getcart_softData(activity);
         cartadpter = new CartAdapter(activity,this);
         binding.recviewcart.setLayoutManager(new GridLayoutManager(activity, 1));
         binding.recviewcart.setAdapter(cartadpter);
@@ -167,7 +167,12 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
                     id = random_int;
                     createOrderModel.setId(id);
                     dialog.show();
-                    accessDatabase.insertOrder(createOrderModel, FragmentCart.this);
+                    try {
+                        accessDatabase.insertOrder(createOrderModel, FragmentCart.this);
+
+                    }catch (Exception e){
+
+                    }
                 }
             }
         });
@@ -246,7 +251,13 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
         }
         createOrderModel.setDetails(list);
         if (bol > 0) {
-            accessDatabase.insertOrderProduct(createOrderModel.getDetails(), this);
+            try {
+                accessDatabase.insertOrderProduct(createOrderModel.getDetails(), this);
+
+            }
+            catch (Exception e){
+
+            }
 
         }
     }
@@ -255,7 +266,7 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
     public void onProductORderDataInsertedSuccess(Boolean bol) {
         dialog.dismiss();
 
-        preferences.clearcart_oliva(activity);
+        preferences.clearcart_soft(activity);
         Intent intent = new Intent(activity, InvoiceActivity.class);
         intent.putExtra("data", createOrderModel);
         startActivity(intent);
@@ -266,13 +277,13 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
         list.remove(adapterPosition);
         cartadpter.notifyItemRemoved(adapterPosition);
         createOrderModel.setDetails(list);
-        preferences.create_update_cart_oliva(activity,createOrderModel);
+        preferences.create_update_cart_soft(activity,createOrderModel);
         isDataChanged = true;
         calculateTotal();
         if (list.size() == 0) {
 
 
-            preferences.clearcart_oliva(activity);
+            preferences.clearcart_soft(activity);
         }
     }
 
@@ -280,7 +291,7 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
     public void onResume() {
         super.onResume();
         if(preferences!=null){
-            createOrderModel=preferences.getcart_olivaData(activity);
+            createOrderModel=preferences.getcart_softData(activity);
             updateUi();
         }
     }

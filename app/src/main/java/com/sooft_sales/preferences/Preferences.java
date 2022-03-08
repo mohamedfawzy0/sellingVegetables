@@ -97,27 +97,27 @@ public class Preferences {
         Gson gson = new Gson();
         return gson.fromJson(preferences.getString("settings",""), UserSettingsModel.class);
     }
-    public void create_update_cart_oliva(Context context , CreateOrderModel model)
+    public void create_update_cart_soft(Context context , CreateOrderModel model)
     {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("cart_oliva", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("cart_soft", Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        String cart_oliva_data = gson.toJson(model);
+        String cart_soft_data = gson.toJson(model);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("cart_oliva_data", cart_oliva_data);
+        editor.putString("cart_soft_data", cart_soft_data);
         editor.apply();
 
     }
 
-    public CreateOrderModel getcart_olivaData(Context context){
-        SharedPreferences sharedPreferences = context.getSharedPreferences("cart_oliva", Context.MODE_PRIVATE);
-        String json_data = sharedPreferences.getString("cart_oliva_data","");
+    public CreateOrderModel getcart_softData(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("cart_soft", Context.MODE_PRIVATE);
+        String json_data = sharedPreferences.getString("cart_soft_data","");
         Gson gson = new Gson();
         CreateOrderModel model = gson.fromJson(json_data, CreateOrderModel.class);
         return model;
     }
 
-    public void clearcart_oliva(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences("cart_oliva", Context.MODE_PRIVATE);
+    public void clearcart_soft(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("cart_soft", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = preferences.edit();
         edit.clear();
         edit.apply();

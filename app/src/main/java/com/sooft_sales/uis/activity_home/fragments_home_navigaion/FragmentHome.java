@@ -136,8 +136,13 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
             @Override
             public void onChanged(List<DepartmentModel> departmentModels) {
                 if (departmentModels.size() > 0) {
-                    Log.e("kkkk", departmentModels.size() + "");
-                    accessDatabase.insertCategory(departmentModels, FragmentHome.this);
+                    //Log.e("kkkk", departmentModels.size() + "");
+                    try {
+                        accessDatabase.insertCategory(departmentModels, FragmentHome.this);
+
+                    } catch (Exception e) {
+
+                    }
                     //binding.cardNoData.setVisibility(View.GONE);
                 } else {
                     index = 0;
@@ -187,15 +192,25 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
                         fragmentHomeMvvm.addproduct(activity, productModelList.get(pos), getUserModel());
                     } else {
                         pos = 0;
-                        accessDatabase.getallOrder(FragmentHome.this);
+                        try {
+                            accessDatabase.getallOrder(FragmentHome.this);
 
+                        } catch (Exception e) {
+
+                        }
                     }
                 } else {
                     // Log.e("llll","llll");
 
                     if (productModel != null) {
                         Log.e("llll", "llll");
-                        accessDatabase.udateProduct(productModelList.get(pos).getId() + "", productModel.getId() + "", FragmentHome.this);
+                        try {
+                            accessDatabase.udateProduct(productModelList.get(pos).getId() + "", productModel.getId() + "", FragmentHome.this);
+
+                        }
+                        catch (Exception e){
+
+                        }
 
                     }
                 }
@@ -252,7 +267,13 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
                 pos = 0;
                 binding.progBar.setVisibility(View.VISIBLE);
                 binding.nested.setVisibility(View.GONE);
-                accessDatabase.getLocalProduct(FragmentHome.this, "local");
+                try {
+                    accessDatabase.getLocalProduct(FragmentHome.this, "local");
+
+                }
+                catch (Exception e){
+
+                }
             }
         });
         binding.cardLogout.setOnClickListener(new View.OnClickListener() {
@@ -280,13 +301,13 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
     }
 
     private void checkpermission() {
-        if (getUserModel().getData().getPermissions()!=null&&!getUserModel().getData().getPermissions().contains("ordersBack")) {
+        if (getUserModel().getData().getPermissions() != null && !getUserModel().getData().getPermissions().contains("ordersBack")) {
             binding.cardReturn.setVisibility(View.GONE);
         }
-        if (getUserModel().getData().getPermissions()!=null&&!getUserModel().getData().getPermissions().contains("productsIndex")) {
+        if (getUserModel().getData().getPermissions() != null && !getUserModel().getData().getPermissions().contains("productsIndex")) {
             binding.cardsales.setVisibility(View.GONE);
         }
-        if (getUserModel().getData().getPermissions()!=null&&!getUserModel().getData().getPermissions().contains("productsIndex")&&!getUserModel().getData().getPermissions().contains("ordersBack")) {
+        if (getUserModel().getData().getPermissions() != null && !getUserModel().getData().getPermissions().contains("productsIndex") && !getUserModel().getData().getPermissions().contains("ordersBack")) {
             binding.cardNew.setVisibility(View.GONE);
         }
 
@@ -315,7 +336,13 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
 
     private void insertOrders(List<CreateOrderModel> createOrderModels) {
         this.createOrderModels = createOrderModels;
-        accessDatabase.insertOrder(createOrderModels.get(pos), FragmentHome.this);
+        try {
+            accessDatabase.insertOrder(createOrderModels.get(pos), FragmentHome.this);
+
+        }
+        catch (Exception e){
+
+        }
 
     }
 
@@ -343,53 +370,69 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
     public void setImageBitmap() {
 
 
-       try {
-           Glide.with(this)
-                   .asBitmap()
-                   .load(productModels.get(index).getPhoto())
-                   .into(new CustomTarget<Bitmap>() {
-                       @Override
-                       public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                           ProductModel productModel = productModels.get(index);
-                           ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                           resource.compress(Bitmap.CompressFormat.JPEG, 10, stream);
-                           productModel.setImageBitmap(stream.toByteArray());
-                           productModels.set(index, productModel);
+        try {
+            Glide.with(this)
+                    .asBitmap()
+                    .load(productModels.get(index).getPhoto())
+                    .into(new CustomTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            ProductModel productModel = productModels.get(index);
+                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                            resource.compress(Bitmap.CompressFormat.JPEG, 10, stream);
+                            productModel.setImageBitmap(stream.toByteArray());
+                            productModels.set(index, productModel);
 
-                           index += 1;
-                           if (index == productModels.size()) {
-                               accessDatabase.insertProduct(productModels, FragmentHome.this);
-                           } else {
-                               setImageBitmap();
-                           }
+                            index += 1;
+                            if (index == productModels.size()) {
+                                try {
+                                    accessDatabase.insertProduct(productModels, FragmentHome.this);
+
+                                }catch (Exception e){
+
+                                }
+                            } else {
+                                setImageBitmap();
+                            }
 
 
-                       }
+                        }
 
-                       @Override
-                       public void onLoadCleared(@Nullable Drawable placeholder) {
+                        @Override
+                        public void onLoadCleared(@Nullable Drawable placeholder) {
 
-                       }
+                        }
 
-                       @Override
-                       public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                           // super.onLoadFailed(errorDrawable);
-                           index += 1;
-                           if (index == productModels.size()) {
-                               accessDatabase.insertProduct(productModels, FragmentHome.this);
-                           } else {
-                               setImageBitmap();
-                           }
-                       }
-                   });
-       }catch (Exception e){
-           index += 1;
-           if (index == productModels.size()) {
-               accessDatabase.insertProduct(productModels, FragmentHome.this);
-           } else {
-               setImageBitmap();
-           }
-       }
+                        @Override
+                        public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                            // super.onLoadFailed(errorDrawable);
+                            index += 1;
+                            if (index == productModels.size()) {
+                                try {
+                                    accessDatabase.insertProduct(productModels, FragmentHome.this);
+
+                                }
+                                catch (Exception e){
+
+                                }
+                            } else {
+                                setImageBitmap();
+                            }
+                        }
+                    });
+        } catch (Exception e) {
+            index += 1;
+            if (index == productModels.size()) {
+                try {
+                    accessDatabase.insertProduct(productModels, FragmentHome.this);
+
+                }catch (Exception exception){
+
+                }
+            } else {
+                setImageBitmap();
+            }
+        }
     }
 
     @Override
@@ -405,7 +448,7 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
             try {
                 accessDatabase.insertOrderProduct(list, this);
 
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
 
@@ -416,7 +459,12 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
     public void onProductORderDataInsertedSuccess(Boolean bol) {
         pos++;
         if (pos < createOrderModels.size()) {
-            accessDatabase.insertOrder(createOrderModels.get(pos), this);
+            try {
+                accessDatabase.insertOrder(createOrderModels.get(pos), this);
+
+            } catch (Exception e) {
+
+            }
         } else {
             index = 0;
             pos = 0;
@@ -432,7 +480,13 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
         if (productModelList.size() > 0) {
             fragmentHomeMvvm.addproduct(activity, productModelList.get(pos), getUserModel());
         } else {
-            accessDatabase.getallOrder(this);
+            try {
+
+                accessDatabase.getallOrder(this);
+
+            } catch (Exception e) {
+
+            }
         }
     }
 
@@ -447,7 +501,12 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
             pos = 0;
 
             Log.e("lllll", "kkkkk");
-            accessDatabase.getallOrder(FragmentHome.this);
+            try {
+                accessDatabase.getallOrder(FragmentHome.this);
+
+            } catch (Exception e) {
+
+            }
 
         }
     }
@@ -457,7 +516,12 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
         pos = 0;
         this.createOrderModels = createOrderModels;
         if (createOrderModels.size() > 0) {
-            accessDatabase.getOrderProduct(this, createOrderModels.get(pos).getId() + "");
+            try {
+                accessDatabase.getOrderProduct(this, createOrderModels.get(pos).getId() + "");
+
+            } catch (Exception e) {
+
+            }
         } else {
             new Thread(new Runnable() {
                 @Override
@@ -482,8 +546,12 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
             pos = 0;
             uploadOrders();
         } else {
-            accessDatabase.getOrderProduct(this, createOrderModels.get(pos).getId() + "");
+            try {
+                accessDatabase.getOrderProduct(this, createOrderModels.get(pos).getId() + "");
 
+            } catch (Exception e) {
+
+            }
         }
     }
 
