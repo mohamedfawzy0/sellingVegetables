@@ -171,10 +171,10 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
                 }
             }
         });
-        if (!getUserModel().getData().getPermissions().contains("ordersStore")) {
+        if (getUserModel().getData().getPermissions()!=null&&!getUserModel().getData().getPermissions().contains("ordersStore")) {
             binding.nested.setVisibility(View.GONE);
         }
-        if (!getUserModel().getData().getPermissions().contains("productsIndex")) {
+        if (getUserModel().getData().getPermissions()!=null&&!getUserModel().getData().getPermissions().contains("productsIndex")) {
             binding.nested.setVisibility(View.GONE);
         }
     }
@@ -261,27 +261,27 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
         startActivity(intent);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (preferences != null) {
-            createOrderModel = preferences.getcart_olivaData(activity);
-            updateUi();
-        }
-    }
 
     public void deleteItem(int adapterPosition) {
         list.remove(adapterPosition);
         cartadpter.notifyItemRemoved(adapterPosition);
         createOrderModel.setDetails(list);
-        preferences.createUpdateCartData(activity,createOrderModel);
+        preferences.create_update_cart_oliva(activity,createOrderModel);
         isDataChanged = true;
         calculateTotal();
         if (list.size() == 0) {
 
 
-            preferences.clearCart(activity);
+            preferences.clearcart_oliva(activity);
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(preferences!=null){
+            createOrderModel=preferences.getcart_olivaData(activity);
+            updateUi();
+        }
+    }
 }

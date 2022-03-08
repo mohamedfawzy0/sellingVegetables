@@ -82,16 +82,16 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
     }
 
     private void checkpermisions() {
-        if (!getUserModel().getData().getPermissions().contains("productCreate")) {
+        if (getUserModel().getData().getPermissions()!=null&&!getUserModel().getData().getPermissions().contains("productCreate")) {
             binding.llMap.setVisibility(View.GONE);
         }
-        if (!getUserModel().getData().getPermissions().contains("ordersStore")) {
+        if (getUserModel().getData().getPermissions()!=null&&!getUserModel().getData().getPermissions().contains("ordersStore")) {
             binding.bill.setVisibility(View.GONE);
         }
     }
 
     public void CreateDialogAlertProfile(Context context, ProductModel productModel) {
-        if (!getUserModel().getData().getPermissions().contains("ordersStore")) {
+        if (getUserModel().getData().getPermissions()!=null&&!getUserModel().getData().getPermissions().contains("ordersStore")) {
            Toast.makeText(this, R.string.per,Toast.LENGTH_LONG).show();
         }
         else{

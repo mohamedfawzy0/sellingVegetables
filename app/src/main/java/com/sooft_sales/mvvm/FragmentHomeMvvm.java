@@ -235,7 +235,7 @@ public class FragmentHomeMvvm extends AndroidViewModel {
 
                     @Override
                     public void onSuccess(@NonNull Response<StatusResponse> response) {
-                        //   Log.e("order",response.code()+""+response.body().getCode());
+                           //Log.e("order",response.code()+"");
 //                        Log.e("slkdkdkkdk", response.code() + ""+cartDataModel.getLatitude()+" "+cartDataModel.getLongitude()+" "+response.body().getStatus());
                         if (response.isSuccessful() && response.body() != null) {
                             if (response.body().getCode() == 200) {

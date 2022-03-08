@@ -123,18 +123,5 @@ public class Preferences {
         edit.apply();
     }
 
-    public void createUpdateCartData(Context context, CreateOrderModel createOrderModel) {
-        SharedPreferences preferences = context.getSharedPreferences("cart", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String data = gson.toJson(createOrderModel);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("data", data);
-        editor.apply();
-    }
-    public void clearCart(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences("cart", Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = preferences.edit();
-        edit.clear();
-        edit.apply();
-    }
+
 }

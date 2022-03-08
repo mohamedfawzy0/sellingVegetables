@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 
@@ -47,7 +48,7 @@ public class ReturnInvoiceActivity extends BaseActivity implements DataBaseInter
         binding.nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                double id = Double.parseDouble(binding.tvInvoice.getText().toString().replaceAll(getResources().getString(R.string.invoice),""));
+                double id = Double.parseDouble(binding.tvInvoice.getText().toString().replaceAll(getResources().getString(R.string.invoice), ""));
                 accessDatabase.udateOrder(id + "", ReturnInvoiceActivity.this);
             }
         });
@@ -56,8 +57,12 @@ public class ReturnInvoiceActivity extends BaseActivity implements DataBaseInter
 
     @Override
     public void onSearchDataSuccess(CreateOrderModel createOrderModel) {
-        binding.tvInvoice.setText(getResources().getString(R.string.invoice) + " " + createOrderModel.getId());
-        binding.nextBtn.setVisibility(View.VISIBLE);
+        if (createOrderModel != null && !createOrderModel.isIs_back()) {
+            binding.tvInvoice.setText(getResources().getString(R.string.invoice) + " " + createOrderModel.getId());
+            binding.nextBtn.setVisibility(View.VISIBLE);
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.before), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

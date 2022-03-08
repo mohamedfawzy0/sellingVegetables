@@ -49,7 +49,8 @@
     <string name="warehouse">مستودع :</string>
     <string name="delete">حذف</string>
     <string name="ch_imge">اختر الصوره</string>
-    <string name="per">"Dont Have Permission "</string>
+    <string name="per">لا يوجد لديك صلاحيه</string>
+    <string name="before">تم ارجاع هذه الفاتوره من قبل</string>
 
     <string-array name="langs">
         <item>العربية</item>

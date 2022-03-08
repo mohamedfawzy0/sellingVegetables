@@ -280,13 +280,13 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
     }
 
     private void checkpermission() {
-        if (!getUserModel().getData().getPermissions().contains("ordersBack")) {
+        if (getUserModel().getData().getPermissions()!=null&&!getUserModel().getData().getPermissions().contains("ordersBack")) {
             binding.cardReturn.setVisibility(View.GONE);
         }
-        if (!getUserModel().getData().getPermissions().contains("productsIndex")) {
+        if (getUserModel().getData().getPermissions()!=null&&!getUserModel().getData().getPermissions().contains("productsIndex")) {
             binding.cardsales.setVisibility(View.GONE);
         }
-        if (!getUserModel().getData().getPermissions().contains("productsIndex")&&!getUserModel().getData().getPermissions().contains("ordersBack")) {
+        if (getUserModel().getData().getPermissions()!=null&&!getUserModel().getData().getPermissions().contains("productsIndex")&&!getUserModel().getData().getPermissions().contains("ordersBack")) {
             binding.cardNew.setVisibility(View.GONE);
         }
 
@@ -343,44 +343,53 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
     public void setImageBitmap() {
 
 
-        Glide.with(this)
-                .asBitmap()
-                .load(productModels.get(index).getPhoto())
-                .into(new CustomTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        ProductModel productModel = productModels.get(index);
-                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        resource.compress(Bitmap.CompressFormat.JPEG, 10, stream);
-                        productModel.setImageBitmap(stream.toByteArray());
-                        productModels.set(index, productModel);
+       try {
+           Glide.with(this)
+                   .asBitmap()
+                   .load(productModels.get(index).getPhoto())
+                   .into(new CustomTarget<Bitmap>() {
+                       @Override
+                       public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                           ProductModel productModel = productModels.get(index);
+                           ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                           resource.compress(Bitmap.CompressFormat.JPEG, 10, stream);
+                           productModel.setImageBitmap(stream.toByteArray());
+                           productModels.set(index, productModel);
 
-                        index += 1;
-                        if (index == productModels.size()) {
-                            accessDatabase.insertProduct(productModels, FragmentHome.this);
-                        } else {
-                            setImageBitmap();
-                        }
+                           index += 1;
+                           if (index == productModels.size()) {
+                               accessDatabase.insertProduct(productModels, FragmentHome.this);
+                           } else {
+                               setImageBitmap();
+                           }
 
 
-                    }
+                       }
 
-                    @Override
-                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                       @Override
+                       public void onLoadCleared(@Nullable Drawable placeholder) {
 
-                    }
+                       }
 
-                    @Override
-                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                        // super.onLoadFailed(errorDrawable);
-                        index += 1;
-                        if (index == productModels.size()) {
-                            accessDatabase.insertProduct(productModels, FragmentHome.this);
-                        } else {
-                            setImageBitmap();
-                        }
-                    }
-                });
+                       @Override
+                       public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                           // super.onLoadFailed(errorDrawable);
+                           index += 1;
+                           if (index == productModels.size()) {
+                               accessDatabase.insertProduct(productModels, FragmentHome.this);
+                           } else {
+                               setImageBitmap();
+                           }
+                       }
+                   });
+       }catch (Exception e){
+           index += 1;
+           if (index == productModels.size()) {
+               accessDatabase.insertProduct(productModels, FragmentHome.this);
+           } else {
+               setImageBitmap();
+           }
+       }
     }
 
     @Override
@@ -393,7 +402,12 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
             list.set(i, itemCartModel);
         }
         if (bol > 0) {
-            accessDatabase.insertOrderProduct(list, this);
+            try {
+                accessDatabase.insertOrderProduct(list, this);
+
+            }catch (Exception e){
+
+            }
 
         }
     }
