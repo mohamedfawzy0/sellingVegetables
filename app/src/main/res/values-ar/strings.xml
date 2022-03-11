@@ -14,10 +14,9 @@
     <string name="amount">الكمية</string>
     <string name="price">المبلغ</string>
     <string name="total">الإجمالي</string>
-    <string name="total_befor_tax">الإجمالي دون الضريبة :</string>
-    <string name="total_after_tax">الإجمالي بعد الضريبة:</string>
-    <string name="total_before_discount">الإجمالي قبل الخصم:</string>
-    <string name="total_after_discount">الإجمالي بعد الخصم:</string>
+    <string name="total_befor_tax">المبلغ قبل الضريبة :</string>
+    <string name="total_after_tax">المبلغ  بعد الضريبة وقبل الخصم:</string>
+    <string name="total_after_discount">الإجمالى بعد الضريبه وبعد الخصم:</string>
     <string name="total1">الإجمالي</string>
     <string name="save">حفظ</string>
     <string name="add">إضافة</string>

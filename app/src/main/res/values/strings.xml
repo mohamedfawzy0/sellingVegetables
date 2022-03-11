@@ -14,9 +14,8 @@
     <string name="price">Price</string>
     <string name="total">Total</string>
     <string name="total_befor_tax">Total Befor Tax :</string>
-    <string name="total_after_tax">Total After Tax :</string>
-    <string name="total_before_discount">Total Before Discount :</string>
-    <string name="total_after_discount">Total After Discount :</string>
+    <string name="total_after_tax">Total After Tax And Before Discount:</string>
+    <string name="total_after_discount">Total After Tax And After Discount :</string>
     <string name="total1">Total Item :</string>
     <string name="save">Save</string>
     <string name="add">Add</string>

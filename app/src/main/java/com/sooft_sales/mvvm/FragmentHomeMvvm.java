@@ -23,6 +23,7 @@ import com.sooft_sales.model.DepartmentModel;
 import com.sooft_sales.model.OrderDataModel;
 import com.sooft_sales.model.ProductDataModel;
 import com.sooft_sales.model.ProductModel;
+import com.sooft_sales.model.SettingDataModel;
 import com.sooft_sales.model.SingleProductDataModel;
 import com.sooft_sales.model.StatusResponse;
 import com.sooft_sales.model.UserModel;
@@ -52,6 +53,7 @@ public class FragmentHomeMvvm extends AndroidViewModel {
     private MutableLiveData<List<DepartmentModel>> departmentLivData;
     private MutableLiveData<List<ProductModel>> listMutableLiveData;
     private MutableLiveData<List<CreateOrderModel>> mutableLiveData;
+    private MutableLiveData<SettingDataModel> settingDataModelMutableLiveData;
 
     private MutableLiveData<ProductModel> productMutableLiveData;
     private MutableLiveData<Boolean> send;
@@ -70,7 +72,13 @@ public class FragmentHomeMvvm extends AndroidViewModel {
 
         return send;
     }
+    public LiveData<SettingDataModel> getSetting() {
+        if (settingDataModelMutableLiveData == null) {
+            settingDataModelMutableLiveData = new MutableLiveData<>();
+        }
 
+        return settingDataModelMutableLiveData;
+    }
     public LiveData<Boolean> getBack() {
         if (back == null) {
             back = new MutableLiveData<>();
@@ -307,7 +315,7 @@ public class FragmentHomeMvvm extends AndroidViewModel {
         RequestBody cat_part = Common.getRequestBodyText(model.getCategory_id() + "");
 
 
-        MultipartBody.Part image = Common.getMultiPart(context, getUriFromBitmap(model.getImageBitmap()), "photo");
+        MultipartBody.Part image = Common.getMultiPart(context, getUriFromBitmap(model.getImageBitmap(),context), "photo");
 
 
         Api.getService(Tags.base_url).addPeoduct(userModel.getData().getAccess_token(), ar_part, en_part, cat_part, image).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).unsubscribeOn(Schedulers.io()).subscribe(new SingleObserver<Response<SingleProductDataModel>>() {
@@ -335,12 +343,43 @@ public class FragmentHomeMvvm extends AndroidViewModel {
 
     }
 
-    private Uri getUriFromBitmap(byte[] endPoint) {
+    private Uri getUriFromBitmap(byte[] endPoint,Context context) {
+        Log.e(";;;;",endPoint.length+"");
         Bitmap bitmap = BitmapFactory.decodeByteArray(endPoint, 0, endPoint.length);
 
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         return Uri.parse(MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "", ""));
+    }
+    public void getSetting(UserModel userModel) {
+
+
+
+        Api.getService(Tags.base_url)
+                .getSetting(userModel.getData().getAccess_token())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<Response<SettingDataModel>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        disposable.add(d);
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull Response<SettingDataModel> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            if (response.body().getCode() == 200) {
+
+                                settingDataModelMutableLiveData.setValue(response.body());
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
     }
 
 }

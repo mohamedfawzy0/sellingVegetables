@@ -16,6 +16,10 @@
             type="com.sooft_sales.model.UserModel" />
 
         <variable
+            name="settingmodel"
+            type="com.sooft_sales.model.SettingModel" />
+
+        <variable
             name="model"
             type="com.sooft_sales.model.CreateOrderModel" />
 
@@ -70,14 +74,13 @@
                     android:id="@+id/logo"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginTop="15dp"
                     android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
 
                     android:scaleType="fitXY"
                     android:src="@drawable/logo"
 
                     />
-
 
 
                 <LinearLayout
@@ -256,14 +259,13 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
+                    android:layout_gravity="center"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_gravity="center"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
 
                     >
-
 
 
                     <TextView
@@ -401,7 +403,7 @@
 
                         android:layout_weight="1"
                         android:padding="3dp"
-                        android:text="@string/total1"
+                        android:text="@string/total_befor_tax"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -417,7 +419,7 @@
                         />
                 </LinearLayout>
 
-            
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -491,11 +493,43 @@
 
 
                     <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="1"
+                        android:padding="3dp"
+                        android:text="@string/total_after_tax"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text='@{String.format(Locale.ENGLISH,"%.2f",model.total+model.tax)+""}'
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
                         android:padding="3dp"
-                        android:text="@string/total2"
+                        android:text="@string/total_after_discount"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -511,19 +545,23 @@
                         />
 
                 </LinearLayout>
-                <TextView
-                    android:id="@+id/tvTotal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
 
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
                 <ImageView
                     imagebase64="@{image}"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:layout_gravity="center" />
 
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@{settingmodel.sale_text}"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+
+                    />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

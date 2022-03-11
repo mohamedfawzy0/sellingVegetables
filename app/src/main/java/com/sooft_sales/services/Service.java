@@ -4,6 +4,7 @@ import com.sooft_sales.model.CreateOrderModel;
 import com.sooft_sales.model.DepartmentDataModel;
 import com.sooft_sales.model.OrderDataModel;
 import com.sooft_sales.model.ProductDataModel;
+import com.sooft_sales.model.SettingDataModel;
 import com.sooft_sales.model.SingleProductDataModel;
 import com.sooft_sales.model.StatusResponse;
 import com.sooft_sales.model.UserModel;
@@ -57,4 +58,8 @@ public interface Service {
     Single<Response<StatusResponse>> backOrder(@Header("Authorization") String authorization,
                                                @Field("id") String id
     );
+
+    @GET("api/home/setting")
+    Single<Response<SettingDataModel>> getSetting(@Header("Authorization") String authorization);
+
 }

@@ -30,6 +30,7 @@ import com.sooft_sales.local_database.AccessDatabase;
 import com.sooft_sales.local_database.DataBaseInterfaces;
 import com.sooft_sales.model.CreateOrderModel;
 import com.sooft_sales.model.ItemCartModel;
+import com.sooft_sales.model.SettingDataModel;
 import com.sooft_sales.model.UserModel;
 import com.sooft_sales.mvvm.FragmentCartMvvm;
 import com.sooft_sales.preferences.Preferences;
@@ -58,6 +59,7 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
     private ProgressDialog dialog;
     private int pos;
     private double id;
+    private SettingDataModel settingDataModel;
 
     public static FragmentCart newInstance() {
         FragmentCart fragment = new FragmentCart();
@@ -89,6 +91,7 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
         list = new ArrayList<>();
         fragmentCartMvvm = ViewModelProviders.of(this).get(FragmentCartMvvm.class);
         preferences = Preferences.getInstance();
+        settingDataModel=preferences.getUserDataSetting(activity);
         accessDatabase = new AccessDatabase(activity);
         dialog = Common.createProgressDialog(activity, activity.getResources().getString(R.string.wait));
         dialog.setCancelable(false);
@@ -99,29 +102,6 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
         binding.recviewcart.setLayoutManager(new GridLayoutManager(activity, 1));
         binding.recviewcart.setAdapter(cartadpter);
         updateUi();
-        binding.edTax.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                try {
-                    tax = ((total - discount) * (Double.parseDouble(binding.edTax.getText().toString()))) / 100;
-
-                } catch (Exception e) {
-                    tax = 0;
-                }
-
-                calculateTotal();
-            }
-        });
         binding.edDiscount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -136,19 +116,14 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
             @Override
             public void afterTextChanged(Editable editable) {
                 try {
-                    discount = ((total) * (Double.parseDouble(binding.edDiscount.getText().toString()))) / 100;
+                    discount = ((total+tax) * (Double.parseDouble(binding.edDiscount.getText().toString()))) / 100;
 
 
                 } catch (Exception e) {
                     discount = 0;
 
                 }
-                try {
-                    tax = ((total - discount) * (Double.parseDouble(binding.edTax.getText().toString()))) / 100;
 
-                } catch (Exception e) {
-                    tax = 0;
-                }
                 calculateTotal();
             }
         });
@@ -216,23 +191,20 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
 
             total += model.getTotal();
         }
+        tax=((total*settingDataModel.getData().getTax_val()))/100;
         try {
-            discount = ((total) * (Double.parseDouble(binding.edDiscount.getText().toString()))) / 100;
+            discount = ((total+tax) * (Double.parseDouble(binding.edDiscount.getText().toString()))) / 100;
 
 
         } catch (Exception e) {
             discount = 0;
 
         }
-        try {
-            tax = ((total - discount) * (Double.parseDouble(binding.edTax.getText().toString()))) / 100;
 
-        } catch (Exception e) {
-            tax = 0;
-        }
         binding.tvDiscount.setText(discount + "");
         binding.tvTax.setText(tax + "");
         binding.tvTotal.setText(total + "");
+        binding.tvtotaltax.setText((total + tax) + "");
         binding.tvTotal2.setText((total + tax - discount) + "");
         createOrderModel.setTotal(total);
         createOrderModel.setTax(tax);

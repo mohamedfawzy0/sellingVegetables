@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.sooft_sales.model.CreateOrderModel;
+import com.sooft_sales.model.SettingDataModel;
 import com.sooft_sales.model.UserModel;
 import com.sooft_sales.model.UserSettingsModel;
 import com.sooft_sales.uis.activity_home.fragments_home_navigaion.FragmentCart;
@@ -121,6 +122,23 @@ public class Preferences {
         SharedPreferences.Editor edit = preferences.edit();
         edit.clear();
         edit.apply();
+    }
+    public SettingDataModel getUserDataSetting(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("user_set", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String user_data = preferences.getString("user_data_set", "");
+        SettingDataModel settingDataModel = gson.fromJson(user_data, SettingDataModel.class);
+        return settingDataModel;
+    }
+
+    public void createUpdateUserDataSetting(Context context,SettingDataModel settingDataModel) {
+        SharedPreferences preferences = context.getSharedPreferences("user_set", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String user_data = gson.toJson(settingDataModel);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("user_data_set",user_data);
+        editor.apply();
+
     }
 
 

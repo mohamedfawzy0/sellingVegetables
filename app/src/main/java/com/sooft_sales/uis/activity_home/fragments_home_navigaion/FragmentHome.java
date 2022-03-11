@@ -36,6 +36,7 @@ import com.sooft_sales.model.CreateOrderModel;
 import com.sooft_sales.model.DepartmentModel;
 import com.sooft_sales.model.ItemCartModel;
 import com.sooft_sales.model.ProductModel;
+import com.sooft_sales.model.SettingDataModel;
 import com.sooft_sales.model.UserSettingsModel;
 import com.sooft_sales.mvvm.FragmentHomeMvvm;
 import com.sooft_sales.preferences.Preferences;
@@ -132,6 +133,14 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
 
         binding.setLang(getLang());
         fragmentHomeMvvm = ViewModelProviders.of(this).get(FragmentHomeMvvm.class);
+        fragmentHomeMvvm.getSetting().observe(this, new androidx.lifecycle.Observer<SettingDataModel>() {
+            @Override
+            public void onChanged(SettingDataModel settingDataModel) {
+                if(settingDataModel!=null){
+                    preferences.createUpdateUserDataSetting(activity,settingDataModel);
+                }
+            }
+        });
         fragmentHomeMvvm.getCategoryData().observe(activity, new androidx.lifecycle.Observer<List<DepartmentModel>>() {
             @Override
             public void onChanged(List<DepartmentModel> departmentModels) {
@@ -267,6 +276,8 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
                 pos = 0;
                 binding.progBar.setVisibility(View.VISIBLE);
                 binding.nested.setVisibility(View.GONE);
+                fragmentHomeMvvm.getSetting(getUserModel());
+
                 try {
                     accessDatabase.getLocalProduct(FragmentHome.this, "local");
 
@@ -290,6 +301,7 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
             userSettingsModel.setIs_first(false);
             preferences.create_update_user_settings(activity, userSettingsModel);
             fragmentHomeMvvm.getDepartment(getUserModel());
+            fragmentHomeMvvm.getSetting(getUserModel());
 
         } else {
             index = 0;

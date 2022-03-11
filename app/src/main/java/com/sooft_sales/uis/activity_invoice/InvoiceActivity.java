@@ -37,6 +37,7 @@ import com.sooft_sales.databinding.ActivityInvoiceBinding;
 import com.sooft_sales.language.Language;
 import com.sooft_sales.model.CreateOrderModel;
 import com.sooft_sales.model.ItemCartModel;
+import com.sooft_sales.model.SettingDataModel;
 import com.sooft_sales.model.UserModel;
 import com.sooft_sales.model.ZatcaQRCodeGeneration;
 import com.sooft_sales.preferences.Preferences;
@@ -67,7 +68,7 @@ public class InvoiceActivity extends AppCompatActivity {
     private ProductBillAdapter productBillAdapter;
     private final String write_perm = Manifest.permission.WRITE_EXTERNAL_STORAGE;
     private final int write_req = 100;
-
+    private SettingDataModel settingDataModel;
     //    private final String bluthoos_perm = Manifest.permission.BLUETOOTH;
 //    private final String bluthoosadmin_perm = Manifest.permission.BLUETOOTH_ADMIN;
 //
@@ -109,7 +110,7 @@ public class InvoiceActivity extends AppCompatActivity {
 
         } else {
             isPermissionGranted = true;
-takeScreenshot(2);
+            takeScreenshot(2);
         }
     }
 
@@ -118,7 +119,7 @@ takeScreenshot(2);
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == write_req && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-        takeScreenshot(2);
+            takeScreenshot(2);
         }
     }
 
@@ -127,6 +128,7 @@ takeScreenshot(2);
         limsProductSaleDataList = new ArrayList<>();
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
+        settingDataModel=preferences.getUserDataSetting(this);
         Paper.init(this);
         lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
         binding.setLang(lang);
@@ -135,11 +137,12 @@ takeScreenshot(2);
         binding.recView.setLayoutManager(new LinearLayoutManager(this));
         binding.recView.setAdapter(productBillAdapter);
         // getlastInvoice();
+        binding.setSettingmodel(settingDataModel.getData());
         binding.btnConfirm3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                PrintMe printMe =  new PrintMe(InvoiceActivity.this);
+                PrintMe printMe = new PrintMe(InvoiceActivity.this);
 
                 // Print a text
 
@@ -151,10 +154,7 @@ takeScreenshot(2);
     }
 
     private void updateData() {
-//        ValueConverters converter;
-//        converter = ValueConverters.ENGLISH_INTEGER;
-//        String valueAsWords = converter.asWords((int) (createOrderModel.getTotal() + createOrderModel.getTax() - createOrderModel.getDiscount()));
-//        binding.tvTotal.setText(valueAsWords);
+
         dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
         binding.tvTime.setText(dateFormat.format(new Date(createOrderModel.getOrder_date_time())));
         ZatcaQRCodeGeneration.Builder builder;
@@ -282,7 +282,7 @@ takeScreenshot(2);
             outputStream.flush();
             outputStream.close();
 
-            PrintMe printMe =  new PrintMe(this);
+            PrintMe printMe = new PrintMe(this);
 
             // Print a text
 
