@@ -128,7 +128,7 @@ public class InvoiceActivity extends AppCompatActivity {
         limsProductSaleDataList = new ArrayList<>();
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
-        settingDataModel=preferences.getUserDataSetting(this);
+        settingDataModel = preferences.getUserDataSetting(this);
         Paper.init(this);
         lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
         binding.setLang(lang);
@@ -159,21 +159,21 @@ public class InvoiceActivity extends AppCompatActivity {
         binding.tvTime.setText(dateFormat.format(new Date(createOrderModel.getOrder_date_time())));
         ZatcaQRCodeGeneration.Builder builder;
         try {
-    builder = new ZatcaQRCodeGeneration.Builder();
-    builder.sellerName(userModel.getData().getUser().getName()) // Shawrma House
-            .taxNumber(userModel.getData().getSetting().getVat()) // 1234567890
-            .invoiceDate(dateFormat.format(new Date(createOrderModel.getOrder_date_time()))) //..> 22/11/2021 03:00 am
-            .totalAmount((createOrderModel.getTotal() + createOrderModel.getTax() - createOrderModel.getDiscount()) + "") // 100
-            .taxAmount(createOrderModel.getTax() + "");
-}catch (Exception e){
-    builder = new ZatcaQRCodeGeneration.Builder();
-    builder.sellerName(userModel.getData().getUser().getName()) // Shawrma House
-            .taxNumber("") // 1234567890
-            .invoiceDate(dateFormat.format(new Date(createOrderModel.getOrder_date_time()))) //..> 22/11/2021 03:00 am
-            .totalAmount((createOrderModel.getTotal() + createOrderModel.getTax() - createOrderModel.getDiscount()) + "") // 100
-            .taxAmount(createOrderModel.getTax() + "");
-}
-    
+            builder = new ZatcaQRCodeGeneration.Builder();
+            builder.sellerName(userModel.getData().getUser().getName()) // Shawrma House
+                    .taxNumber(userModel.getData().getSetting().getVat()) // 1234567890
+                    .invoiceDate(dateFormat.format(new Date(createOrderModel.getOrder_date_time()))) //..> 22/11/2021 03:00 am
+                    .totalAmount((createOrderModel.getTotal() + createOrderModel.getTax() - createOrderModel.getDiscount()) + "") // 100
+                    .taxAmount(createOrderModel.getTax() + "");
+        } catch (Exception e) {
+            builder = new ZatcaQRCodeGeneration.Builder();
+            builder.sellerName(userModel.getData().getUser().getName()) // Shawrma House
+                    .taxNumber("") // 1234567890
+                    .invoiceDate(dateFormat.format(new Date(createOrderModel.getOrder_date_time()))) //..> 22/11/2021 03:00 am
+                    .totalAmount((createOrderModel.getTotal() + createOrderModel.getTax() - createOrderModel.getDiscount()) + "") // 100
+                    .taxAmount(createOrderModel.getTax() + "");
+        }
+
         binding.setModel(createOrderModel);
         binding.setUsermodel(userModel);
 
