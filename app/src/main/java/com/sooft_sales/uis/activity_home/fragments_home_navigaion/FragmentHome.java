@@ -290,6 +290,13 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
         binding.cardLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        accessDatabase.clear();
+
+                    }
+                }).start();                preferences.clearcart_soft(activity);
                 preferences.clearUserData(activity);
                 activity.logout();
             }
