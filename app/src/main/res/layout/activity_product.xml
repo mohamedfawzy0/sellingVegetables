@@ -24,16 +24,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/bill"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:clickable="false"
-                    android:longClickable="false"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_bill"
-
-                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -113,6 +103,46 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
+        <LinearLayout
+            android:id="@+id/bill"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="15dp"
+            android:gravity="bottom"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_bill"
+                app:backgroundTint="@color/white"
+                app:elevation="0dp"
+                app:fabSize="mini" />
+
+        </LinearLayout>
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="15dp"-->
+<!--            android:gravity="bottom"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            >-->
+<!--            <ImageView-->
+<!--                android:id="@+id/bill"-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:clickable="false"-->
+<!--                android:longClickable="false"-->
+<!--                android:padding="8dp"-->
+<!--                android:src="@drawable/ic_bill"-->
+
+<!--                />-->
+
+<!--        </LinearLayout>-->
         <LinearLayout
             android:id="@+id/llMap"
             android:layout_width="wrap_content"
