@@ -136,8 +136,8 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
         fragmentHomeMvvm.getSetting().observe(this, new androidx.lifecycle.Observer<SettingDataModel>() {
             @Override
             public void onChanged(SettingDataModel settingDataModel) {
-                if(settingDataModel!=null){
-                    preferences.createUpdateUserDataSetting(activity,settingDataModel);
+                if (settingDataModel != null) {
+                    preferences.createUpdateUserDataSetting(activity, settingDataModel);
                 }
             }
         });
@@ -168,7 +168,7 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
             public void onChanged(List<ProductModel> productModels) {
                 if (productModels != null && productModels.size() > 0) {
                     Log.e("kkkk", productModels.size() + "");
-
+                    index = 0;
                     FragmentHome.this.productModels = productModels;
                     setImageBitmap();
                 } else {
@@ -183,6 +183,7 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
             @Override
             public void onChanged(List<CreateOrderModel> createOrderModels) {
                 if (createOrderModels != null && createOrderModels.size() > 0) {
+
                     insertOrders(createOrderModels);
                 } else {
                     index = 0;
@@ -216,8 +217,7 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
                         try {
                             accessDatabase.udateProduct(productModelList.get(pos).getId() + "", productModel.getId() + "", FragmentHome.this);
 
-                        }
-                        catch (Exception e){
+                        } catch (Exception e) {
 
                         }
 
@@ -281,8 +281,7 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
                 try {
                     accessDatabase.getLocalProduct(FragmentHome.this, "local");
 
-                }
-                catch (Exception e){
+                } catch (Exception e) {
 
                 }
             }
@@ -296,7 +295,8 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
                         accessDatabase.clear();
 
                     }
-                }).start();                preferences.clearcart_soft(activity);
+                }).start();
+                preferences.clearcart_soft(activity);
                 preferences.clearUserData(activity);
                 activity.logout();
             }
@@ -358,8 +358,7 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
         try {
             accessDatabase.insertOrder(createOrderModels.get(pos), FragmentHome.this);
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -407,7 +406,7 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
                                 try {
                                     accessDatabase.insertProduct(productModels, FragmentHome.this);
 
-                                }catch (Exception e){
+                                } catch (Exception e) {
 
                                 }
                             } else {
@@ -430,8 +429,7 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
                                 try {
                                     accessDatabase.insertProduct(productModels, FragmentHome.this);
 
-                                }
-                                catch (Exception e){
+                                } catch (Exception e) {
 
                                 }
                             } else {
@@ -445,7 +443,7 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
                 try {
                     accessDatabase.insertProduct(productModels, FragmentHome.this);
 
-                }catch (Exception exception){
+                } catch (Exception exception) {
 
                 }
             } else {
