@@ -59,7 +59,12 @@ public class AccessDatabase {
     }
 
     public void insertOrderProduct(List<ItemCartModel> itemCartModelList, DataBaseInterfaces.ProductOrderInsertInterface retrieveInsertInterface) {
-        new InsertProductOrderTask(retrieveInsertInterface).execute(itemCartModelList);
+        try {
+            new InsertProductOrderTask(retrieveInsertInterface).execute(itemCartModelList);
+
+        }catch (Exception e){
+
+        }
     }
 
     public void search(DataBaseInterfaces.SearchInterface searchInterface, String id) {
@@ -278,7 +283,14 @@ public class AccessDatabase {
         @Override
         protected Boolean doInBackground(List<ItemCartModel>... lists) {
             boolean isInserted = false;
-            long[] data = daoInterface.insertOrderProducts(lists[0]);
+            long[] data = null;
+            try {
+                data = daoInterface.insertOrderProducts(lists[0]);
+
+            }
+            catch (Exception e){
+                
+            }
             if (data != null && data.length > 0) {
                 isInserted = true;
             }

@@ -395,12 +395,13 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
                     .into(new CustomTarget<Bitmap>() {
                         @Override
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                            ProductModel productModel = productModels.get(index);
-                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                            resource.compress(Bitmap.CompressFormat.JPEG, 10, stream);
-                            productModel.setImageBitmap(stream.toByteArray());
-                            productModels.set(index, productModel);
-
+                            if(index<productModels.size()) {
+                                ProductModel productModel = productModels.get(index);
+                                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                                resource.compress(Bitmap.CompressFormat.JPEG, 10, stream);
+                                productModel.setImageBitmap(stream.toByteArray());
+                                productModels.set(index, productModel);
+                            }
                             index += 1;
                             if (index == productModels.size()) {
                                 try {
