@@ -92,14 +92,14 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
         list = new ArrayList<>();
         fragmentCartMvvm = ViewModelProviders.of(this).get(FragmentCartMvvm.class);
         preferences = Preferences.getInstance();
-        settingDataModel=preferences.getUserDataSetting(activity);
+        settingDataModel = preferences.getUserDataSetting(activity);
         accessDatabase = new AccessDatabase(activity);
         dialog = Common.createProgressDialog(activity, activity.getResources().getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         userModel = preferences.getUserData(activity);
         createOrderModel = preferences.getcart_softData(activity);
-        cartadpter = new CartAdapter(activity,this);
+        cartadpter = new CartAdapter(activity, this);
         binding.recviewcart.setLayoutManager(new GridLayoutManager(activity, 1));
         binding.recviewcart.setAdapter(cartadpter);
         updateUi();
@@ -117,15 +117,16 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
             @Override
             public void afterTextChanged(Editable editable) {
                 try {
-                    discount = ((total+tax) * (Double.parseDouble(binding.edDiscount.getText().toString()))) / 100;
+                    discount = ((total + tax) * (Double.parseDouble(binding.edDiscount.getText().toString()))) / 100;
 
 
                 } catch (Exception e) {
                     discount = 0;
 
                 }
-
-                calculateTotal();
+                if (createOrderModel != null) {
+                    calculateTotal();
+                }
             }
         });
         binding.btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -146,16 +147,16 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
                     try {
                         accessDatabase.insertOrder(createOrderModel, FragmentCart.this);
 
-                    }catch (Exception e){
+                    } catch (Exception e) {
 
                     }
                 }
             }
         });
-        if (getUserModel().getData().getPermissions()!=null&&!getUserModel().getData().getPermissions().contains("ordersStore")) {
+        if (getUserModel().getData().getPermissions() != null && !getUserModel().getData().getPermissions().contains("ordersStore")) {
             binding.nested.setVisibility(View.GONE);
         }
-        if (getUserModel().getData().getPermissions()!=null&&!getUserModel().getData().getPermissions().contains("productsIndex")) {
+        if (getUserModel().getData().getPermissions() != null && !getUserModel().getData().getPermissions().contains("productsIndex")) {
             binding.nested.setVisibility(View.GONE);
         }
     }
@@ -182,7 +183,7 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
             binding.tvTax.setText(tax + "");
             binding.tvTotal.setText(total + "");
             binding.tvTotal2.setText((total + tax - discount) + "");
-            binding.tvtotaltax.setText((total + tax)+"");
+            binding.tvtotaltax.setText((total + tax) + "");
 
         }
     }
@@ -193,9 +194,9 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
 
             total += model.getTotal();
         }
-        tax=((total*settingDataModel.getData().getTax_val()))/100;
+        tax = ((total * settingDataModel.getData().getTax_val())) / 100;
         try {
-            discount = ((total+tax) * (Double.parseDouble(binding.edDiscount.getText().toString()))) / 100;
+            discount = ((total + tax) * (Double.parseDouble(binding.edDiscount.getText().toString()))) / 100;
 
 
         } catch (Exception e) {
@@ -203,11 +204,11 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
 
         }
 
-        binding.tvDiscount.setText(String.format(Locale.ENGLISH,"%.2f",discount) + "");
-        binding.tvTax.setText(String.format(Locale.ENGLISH,"%.2f",tax) + "");
-        binding.tvTotal.setText(String.format(Locale.ENGLISH,"%.2f",total )+ "");
-        binding.tvtotaltax.setText(String.format(Locale.ENGLISH,"%.2f",(total + tax)) + "");
-        binding.tvTotal2.setText(String.format(Locale.ENGLISH,"%.2f",(total + tax - discount)) + "");
+        binding.tvDiscount.setText(String.format(Locale.ENGLISH, "%.2f", discount) + "");
+        binding.tvTax.setText(String.format(Locale.ENGLISH, "%.2f", tax) + "");
+        binding.tvTotal.setText(String.format(Locale.ENGLISH, "%.2f", total) + "");
+        binding.tvtotaltax.setText(String.format(Locale.ENGLISH, "%.2f", (total + tax)) + "");
+        binding.tvTotal2.setText(String.format(Locale.ENGLISH, "%.2f", (total + tax - discount)) + "");
         createOrderModel.setTotal(total);
         createOrderModel.setTax(tax);
         createOrderModel.setDiscount(discount);
@@ -228,8 +229,7 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
             try {
                 accessDatabase.insertOrderProduct(createOrderModel.getDetails(), this);
 
-            }
-            catch (Exception e){
+            } catch (Exception e) {
 
             }
 
@@ -251,7 +251,7 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
         list.remove(adapterPosition);
         cartadpter.notifyItemRemoved(adapterPosition);
         createOrderModel.setDetails(list);
-        preferences.create_update_cart_soft(activity,createOrderModel);
+        preferences.create_update_cart_soft(activity, createOrderModel);
         isDataChanged = true;
         calculateTotal();
         if (list.size() == 0) {
@@ -264,8 +264,8 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
     @Override
     public void onResume() {
         super.onResume();
-        if(preferences!=null){
-            createOrderModel=preferences.getcart_softData(activity);
+        if (preferences != null) {
+            createOrderModel = preferences.getcart_softData(activity);
             updateUi();
         }
     }
