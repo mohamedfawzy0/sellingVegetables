@@ -6,6 +6,7 @@
 <variable
     name="model"
     type="com.sooft_sales.model.ItemCartModel" />
+        <import type="java.util.Locale"/>
     </data>
 
 
@@ -50,7 +51,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text='@{model.price+""}'
+                    android:text='@{String.format(Locale.ENGLISH,"%.2f",model.price)+""}'
                     android:layout_gravity="center"
                     android:gravity="center"
 
@@ -60,7 +61,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text='@{model.total+""}'
+                    android:text='@{String.format(Locale.ENGLISH,"%.2f",model.total)+""}'
 
                     android:layout_gravity="center"
                     android:gravity="center"

@@ -42,6 +42,7 @@ import com.sooft_sales.uis.activity_invoice.InvoiceActivity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class FragmentCart extends BaseFragment implements DataBaseInterfaces.OrderInsertInterface, DataBaseInterfaces.ProductOrderInsertInterface {
@@ -181,6 +182,7 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
             binding.tvTax.setText(tax + "");
             binding.tvTotal.setText(total + "");
             binding.tvTotal2.setText((total + tax - discount) + "");
+            binding.tvtotaltax.setText((total + tax)+"");
 
         }
     }
@@ -201,11 +203,11 @@ public class FragmentCart extends BaseFragment implements DataBaseInterfaces.Ord
 
         }
 
-        binding.tvDiscount.setText(discount + "");
-        binding.tvTax.setText(tax + "");
-        binding.tvTotal.setText(total + "");
-        binding.tvtotaltax.setText((total + tax) + "");
-        binding.tvTotal2.setText((total + tax - discount) + "");
+        binding.tvDiscount.setText(String.format(Locale.ENGLISH,"%.2f",discount) + "");
+        binding.tvTax.setText(String.format(Locale.ENGLISH,"%.2f",tax) + "");
+        binding.tvTotal.setText(String.format(Locale.ENGLISH,"%.2f",total )+ "");
+        binding.tvtotaltax.setText(String.format(Locale.ENGLISH,"%.2f",(total + tax)) + "");
+        binding.tvTotal2.setText(String.format(Locale.ENGLISH,"%.2f",(total + tax - discount)) + "");
         createOrderModel.setTotal(total);
         createOrderModel.setTax(tax);
         createOrderModel.setDiscount(discount);
