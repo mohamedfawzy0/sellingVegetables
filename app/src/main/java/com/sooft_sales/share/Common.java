@@ -89,13 +89,20 @@ public class Common {
                                 + split[1];
                     }
                 } else if (isDownloadsDocument(uri)) {
+                    try {
+                        final String id = DocumentsContract.getDocumentId(uri);
+                        if (id.startsWith("raw:")||id.contains("msf:")) {
+                            return id.replaceFirst("raw:", "").replaceAll("msf:","").replace("\"","");
+                        }
+                        final Uri contentUri = ContentUris.withAppendedId(
+                                Uri.parse("content://downloads/public_downloads"),
+                                ContentUris.parseId(uri));
 
-                    final String id = DocumentsContract.getDocumentId(uri);
-                    final Uri contentUri = ContentUris.withAppendedId(
-                            Uri.parse("content://downloads/public_downloads"),
-                            Long.valueOf(id));
+                        return getDataColumn(context, contentUri, null, null);
+                    } catch (Exception e) {
 
-                    return getDataColumn(context, contentUri, null, null);
+                    }
+
                 }
                 // MediaProvider
                 else if (isMediaDocument(uri)) {

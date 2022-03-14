@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.sooft_sales.R;
@@ -45,6 +46,8 @@ import com.sooft_sales.uis.activity_base.BaseFragment;
 import com.sooft_sales.uis.activity_home.HomeActivity;
 import com.sooft_sales.uis.activity_product.ProductActivity;
 import com.sooft_sales.uis.activity_return_invoice.ReturnInvoiceActivity;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -390,16 +393,19 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
 
 
         try {
-            Glide.with(this)
-                    .asBitmap()
-                    .load(productModels.get(index).getPhoto()).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .into(new CustomTarget<Bitmap>() {
+
+            Picasso.get()
+                    .load(productModels.get(index).getPhoto())
+                    .into(new Target() {
                         @Override
-                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        public void onBitmapLoaded (final Bitmap bitmap, Picasso.LoadedFrom from){
+                            /* Save the bitmap or do something with it here */
+
+                            //Set it in the ImageView
                             if(index<productModels.size()) {
                                 ProductModel productModel = productModels.get(index);
                                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                                resource.compress(Bitmap.CompressFormat.JPEG, 10, stream);
+                                bitmap.compress(Bitmap.CompressFormat.JPEG, 10, stream);
                                 productModel.setImageBitmap(stream.toByteArray());
                                 productModels.set(index, productModel);
                             }
@@ -414,29 +420,26 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
                             } else {
                                 setImageBitmap();
                             }
-
-
                         }
 
                         @Override
-                        public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                        }
-
-                        @Override
-                        public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                            // super.onLoadFailed(errorDrawable);
+                        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
                             index += 1;
                             if (index == productModels.size()) {
                                 try {
                                     accessDatabase.insertProduct(productModels, FragmentHome.this);
 
-                                } catch (Exception e) {
+                                } catch (Exception ex) {
 
                                 }
                             } else {
                                 setImageBitmap();
                             }
+                        }
+
+                        @Override
+                        public void onPrepareLoad(Drawable placeHolderDrawable) {
+
                         }
                     });
         } catch (Exception e) {

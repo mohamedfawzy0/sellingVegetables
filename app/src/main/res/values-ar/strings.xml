@@ -50,6 +50,7 @@
     <string name="ch_imge">اختر الصوره</string>
     <string name="per">لا يوجد لديك صلاحيه</string>
     <string name="before">تم ارجاع هذه الفاتوره من قبل</string>
+    <string name="ch_name">تم اضافة هذا المنتج من قبل</string>
 
     <string-array name="langs">
         <item>العربية</item>

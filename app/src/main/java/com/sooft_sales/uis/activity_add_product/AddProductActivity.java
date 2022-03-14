@@ -140,8 +140,11 @@ public class AddProductActivity extends BaseActivity implements DataBaseInterfac
 
                     uri = result.getData().getData();
                     File file = new File(Common.getImagePath(this, uri));
-
-                    Picasso.get().load(file).fit().into(binding.image1);
+                    if (file.isFile()) {
+                        Picasso.get().load(file).fit().into(binding.image1);
+                    } else {
+                        Picasso.get().load(uri).fit().into(binding.image1);
+                    }
                     addProductModel.setImage(uri);
                     binding.setModel(addProductModel);
 
@@ -268,13 +271,17 @@ public class AddProductActivity extends BaseActivity implements DataBaseInterfac
     private Uri getUriFromBitmap(Bitmap bitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 10, bytes);
-        return Uri.parse(MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "", ""));
+        return Uri.parse(MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "filename", ""));
     }
 
 
     @Override
     public void onProductDataInsertedSuccess(Boolean bol) {
-
+        if (bol) {
+            finish();
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.ch_name), Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -314,7 +321,7 @@ public class AddProductActivity extends BaseActivity implements DataBaseInterfac
                         } catch (Exception e) {
 
                         }
-                        finish();
+
                     }
 
                     @Override

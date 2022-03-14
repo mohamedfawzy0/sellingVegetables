@@ -49,6 +49,7 @@
     <string name="ch_imge">Choose Image</string>
     <string name="per">"Dont Have Permission "</string>
     <string name="before">this invoice return before</string>
+    <string name="ch_name">Change Name</string>
 
     <string-array name="langs">
         <item>عربى</item>
