@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.sooft_sales.R;
@@ -391,7 +392,7 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
         try {
             Glide.with(this)
                     .asBitmap()
-                    .load(productModels.get(index).getPhoto())
+                    .load(productModels.get(index).getPhoto()).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(new CustomTarget<Bitmap>() {
                         @Override
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {

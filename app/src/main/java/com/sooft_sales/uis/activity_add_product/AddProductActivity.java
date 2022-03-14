@@ -111,6 +111,12 @@ public class AddProductActivity extends BaseActivity implements DataBaseInterfac
             if (addProductModel.isDataValid(this)) {
                 ProductModel productModel = new ProductModel();
                 productModel.setType("local");
+                double min = 1000;
+                double max = 100000;
+
+                //Generate random int value from 50 to 100
+                double random_int = (int) Math.floor(Math.random() * (max - min + 1) + min);
+                id = random_int;
                 productModel.setId(id);
                 productModel.setCategory_id(addProductModel.getCategory_id());
                 if (getUserModel().getData().getUser().getLang().equals("ar")) {
@@ -261,7 +267,7 @@ public class AddProductActivity extends BaseActivity implements DataBaseInterfac
 
     private Uri getUriFromBitmap(Bitmap bitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, bytes);
         return Uri.parse(MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "", ""));
     }
 

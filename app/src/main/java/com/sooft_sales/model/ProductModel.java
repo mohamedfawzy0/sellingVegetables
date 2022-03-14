@@ -13,7 +13,7 @@ import com.sooft_sales.tags.Tags;
 
 import java.io.Serializable;
 
-@Entity(tableName = Tags.table_products, indices = @Index(value = {"category_id", "id"}),
+@Entity(tableName = Tags.table_products, indices ={ @Index(value = {"category_id", "id"}),@Index(value = {"title"},unique = true),@Index(value = { "title2"},unique = true)},
         foreignKeys = {
                 @ForeignKey(entity = DepartmentModel.class, parentColumns = "id", childColumns = "category_id", onDelete = CASCADE, onUpdate = CASCADE)
 

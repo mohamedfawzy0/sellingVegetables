@@ -348,7 +348,7 @@ public class FragmentHomeMvvm extends AndroidViewModel {
         Bitmap bitmap = BitmapFactory.decodeByteArray(endPoint, 0, endPoint.length);
 
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, bytes);
         return Uri.parse(MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "", ""));
     }
     public void getSetting(UserModel userModel) {
