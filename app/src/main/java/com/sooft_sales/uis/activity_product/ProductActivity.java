@@ -86,6 +86,14 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
         binding.bill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                
+                  CreateOrderModel add_order_model = preferences.getcart_softData(ProductActivity.this);
+        if (add_order_model != null) {
+                  add_order_model.setCustomer_name(binding.edCustomer.getText().toString());
+                    preferences.create_update_cart_soft(ProductActivity.this, add_order_model);
+
+
+        } 
                 setResult(RESULT_OK);
                 finish();
             }
