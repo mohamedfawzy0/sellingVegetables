@@ -88,6 +88,10 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
                 CreateOrderModel add_order_model = preferences.getcart_softData(ProductActivity.this);
                 if (add_order_model != null) {
                     add_order_model.setCustomer_name(binding.edCustomer.getText().toString());
+                    binding.edCustomer.getText().toString();
+                    if(binding.edCustomer.getText().toString().isEmpty()){
+                        add_order_model.setCustomer_name("عميل افتراضى");
+                    }
                     preferences.create_update_cart_soft(ProductActivity.this, add_order_model);
 
 
@@ -153,6 +157,10 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
         CreateOrderModel add_order_model = preferences.getcart_softData(ProductActivity.this);
         if (add_order_model != null) {
             add_order_model.setCustomer_name(binding.edCustomer.getText().toString());
+            binding.edCustomer.getText().toString();
+            if(binding.edCustomer.getText().toString().isEmpty()){
+                add_order_model.setCustomer_name("عميل افتراضى");
+            }
             preferences.create_update_cart_soft(ProductActivity.this, add_order_model);
 
 
