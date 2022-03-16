@@ -149,7 +149,18 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
         dialog.setView(binding.getRoot());
         dialog.show();
     }}
+ @Override
+    public void onBackPressed() {
+                   CreateOrderModel add_order_model = preferences.getcart_softData(ProductActivity.this);
+        if (add_order_model != null) {
+                  add_order_model.setCustomer_name(binding.edCustomer.getText().toString());
+                    preferences.create_update_cart_soft(ProductActivity.this, add_order_model);
 
+
+        }
+        finish();
+        
+    }
     public void addtocart(ProductModel productModel, int amount, double price) {
         List<ItemCartModel> productDetailsList;
         CreateOrderModel add_order_model = preferences.getcart_softData(ProductActivity.this);
