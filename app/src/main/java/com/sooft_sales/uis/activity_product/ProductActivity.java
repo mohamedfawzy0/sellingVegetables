@@ -63,18 +63,16 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
         try {
             accessDatabase.getCategory(this);
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
 
         }
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-           try {
-               accessDatabase.getCategory(this);
+            try {
+                accessDatabase.getCategory(this);
 
-           }
-           catch (Exception e){
+            } catch (Exception e) {
 
-           }
+            }
         });
         binding.llMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,14 +84,14 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
         binding.bill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
-                  CreateOrderModel add_order_model = preferences.getcart_softData(ProductActivity.this);
-        if (add_order_model != null) {
-                  add_order_model.setCustomer_name(binding.edCustomer.getText().toString());
+
+                CreateOrderModel add_order_model = preferences.getcart_softData(ProductActivity.this);
+                if (add_order_model != null) {
+                    add_order_model.setCustomer_name(binding.edCustomer.getText().toString());
                     preferences.create_update_cart_soft(ProductActivity.this, add_order_model);
 
 
-        } 
+                }
                 setResult(RESULT_OK);
                 finish();
             }
@@ -102,65 +100,67 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
     }
 
     private void checkpermisions() {
-        if (getUserModel().getData().getPermissions()!=null&&!getUserModel().getData().getPermissions().contains("productCreate")) {
+        if (getUserModel().getData().getPermissions() != null && !getUserModel().getData().getPermissions().contains("productCreate")) {
             binding.llMap.setVisibility(View.GONE);
         }
-        if (getUserModel().getData().getPermissions()!=null&&!getUserModel().getData().getPermissions().contains("ordersStore")) {
+        if (getUserModel().getData().getPermissions() != null && !getUserModel().getData().getPermissions().contains("ordersStore")) {
             binding.bill.setVisibility(View.GONE);
         }
     }
 
     public void CreateDialogAlertProfile(Context context, ProductModel productModel) {
-        if (getUserModel().getData().getPermissions()!=null&&!getUserModel().getData().getPermissions().contains("ordersStore")) {
-           Toast.makeText(this, R.string.per,Toast.LENGTH_LONG).show();
-        }
-        else{
-        final AlertDialog dialog = new AlertDialog.Builder(context)
-                .create();
+        if (getUserModel().getData().getPermissions() != null && !getUserModel().getData().getPermissions().contains("ordersStore")) {
+            Toast.makeText(this, R.string.per, Toast.LENGTH_LONG).show();
+        } else {
+            final AlertDialog dialog = new AlertDialog.Builder(context)
+                    .create();
 
-        DialogAlertBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_alert, null, false);
+            DialogAlertBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_alert, null, false);
 
 
-        binding.btnAdd.setOnClickListener(v -> {
-                    String amount = binding.edtAmount.getText().toString();
-                    String price = binding.edtprice.getText().toString();
-                    if (!amount.isEmpty() && !price.isEmpty()) {
-                        binding.edtAmount.setError(null);
-                        binding.edtprice.setError(null);
-                        addtocart(productModel, Integer.parseInt(amount), Double.parseDouble(price));
-                        dialog.dismiss();
-
-                    } else {
-                        if (amount.isEmpty()) {
-                            binding.edtAmount.setError(context.getResources().getString(R.string.field_required));
-                        } else {
+            binding.btnAdd.setOnClickListener(v -> {
+                        String amount = binding.edtAmount.getText().toString();
+                        String price = binding.edtprice.getText().toString();
+                        if (!amount.isEmpty() && !price.isEmpty()) {
                             binding.edtAmount.setError(null);
-                        }
-                        if (price.isEmpty()) {
-                            binding.edtprice.setError(context.getResources().getString(R.string.field_required));
-                        } else {
                             binding.edtprice.setError(null);
+                            addtocart(productModel, Integer.parseInt(amount), Double.parseDouble(price));
+                            dialog.dismiss();
+
+                        } else {
+                            if (amount.isEmpty()) {
+                                binding.edtAmount.setError(context.getResources().getString(R.string.field_required));
+                            } else {
+                                binding.edtAmount.setError(null);
+                            }
+                            if (price.isEmpty()) {
+                                binding.edtprice.setError(context.getResources().getString(R.string.field_required));
+                            } else {
+                                binding.edtprice.setError(null);
+                            }
                         }
                     }
-                }
 
-        );
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.setView(binding.getRoot());
-        dialog.show();
-    }}
- @Override
+            );
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.setView(binding.getRoot());
+            dialog.show();
+        }
+    }
+
+    @Override
     public void onBackPressed() {
-                   CreateOrderModel add_order_model = preferences.getcart_softData(ProductActivity.this);
+        CreateOrderModel add_order_model = preferences.getcart_softData(ProductActivity.this);
         if (add_order_model != null) {
-                  add_order_model.setCustomer_name(binding.edCustomer.getText().toString());
-                    preferences.create_update_cart_soft(ProductActivity.this, add_order_model);
+            add_order_model.setCustomer_name(binding.edCustomer.getText().toString());
+            preferences.create_update_cart_soft(ProductActivity.this, add_order_model);
 
 
         }
         finish();
-        
+
     }
+
     public void addtocart(ProductModel productModel, int amount, double price) {
         List<ItemCartModel> productDetailsList;
         CreateOrderModel add_order_model = preferences.getcart_softData(ProductActivity.this);
@@ -194,8 +194,7 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
             try {
                 accessDatabase.getProduct(this, categoryModelList.get(0).getId() + "");
 
-            }
-            catch (Exception e){
+            } catch (Exception e) {
 
             }
         }
@@ -212,12 +211,11 @@ public class ProductActivity extends BaseActivity implements DataBaseInterfaces.
     }
 
     public void show(int id) {
-try {
-    accessDatabase.getProduct(this, id + "");
+        try {
+            accessDatabase.getProduct(this, id + "");
 
-}
-catch (Exception e){
+        } catch (Exception e) {
 
-}
+        }
     }
 }
