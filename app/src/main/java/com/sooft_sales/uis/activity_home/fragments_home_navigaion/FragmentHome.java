@@ -39,9 +39,11 @@ import com.sooft_sales.model.DepartmentModel;
 import com.sooft_sales.model.ItemCartModel;
 import com.sooft_sales.model.ProductModel;
 import com.sooft_sales.model.SettingDataModel;
+import com.sooft_sales.model.SettingModel;
 import com.sooft_sales.model.UserSettingsModel;
 import com.sooft_sales.mvvm.FragmentHomeMvvm;
 import com.sooft_sales.preferences.Preferences;
+import com.sooft_sales.tags.Tags;
 import com.sooft_sales.uis.activity_base.BaseFragment;
 import com.sooft_sales.uis.activity_home.HomeActivity;
 import com.sooft_sales.uis.activity_product.ProductActivity;
@@ -141,7 +143,33 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
             @Override
             public void onChanged(SettingDataModel settingDataModel) {
                 if (settingDataModel != null) {
-                    preferences.createUpdateUserDataSetting(activity, settingDataModel);
+                    Picasso.get()
+                            .load(Tags.base_url+settingDataModel.getData().getLogo())
+                            .into(new Target() {
+                                @Override
+                                public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
+                                    /* Save the bitmap or do something with it here */
+                                    SettingModel settingModel = settingDataModel.getData();
+
+                                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                                    bitmap.compress(Bitmap.CompressFormat.JPEG, 10, stream);
+                                    settingModel.setImageBitmap(stream.toByteArray());
+                                    settingDataModel.setData(settingModel);
+                                    preferences.createUpdateUserDataSetting(activity, settingDataModel);
+
+                                }
+
+                                @Override
+                                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                                    preferences.createUpdateUserDataSetting(activity, settingDataModel);
+
+                                }
+
+                                @Override
+                                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                                }
+                            });
                 }
             }
         });
@@ -398,11 +426,11 @@ public class FragmentHome extends BaseFragment implements DataBaseInterfaces.Pro
                     .load(productModels.get(index).getPhoto())
                     .into(new Target() {
                         @Override
-                        public void onBitmapLoaded (final Bitmap bitmap, Picasso.LoadedFrom from){
+                        public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
                             /* Save the bitmap or do something with it here */
 
                             //Set it in the ImageView
-                            if(index<productModels.size()) {
+                            if (index < productModels.size()) {
                                 ProductModel productModel = productModels.get(index);
                                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                                 bitmap.compress(Bitmap.CompressFormat.JPEG, 10, stream);

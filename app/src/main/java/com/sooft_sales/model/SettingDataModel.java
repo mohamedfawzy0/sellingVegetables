@@ -9,5 +9,7 @@ public class SettingDataModel extends StatusResponse implements Serializable {
         return data;
     }
 
-
+    public void setData(SettingModel data) {
+        this.data = data;
+    }
 }

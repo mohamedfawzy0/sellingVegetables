@@ -72,14 +72,12 @@
 
                 <ImageView
                     android:id="@+id/logo"
+                    image="@{settingmodel.imageBitmap}"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
-
-                    android:scaleType="fitXY"
-                    android:src="@drawable/logo"
-
+android:scaleType="fitXY"
                     />
 
 
@@ -251,7 +249,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text='@{lang.equals("ar")?usermodel.Data.Setting.name_ar:usermodel.Data.Setting.name_en}'
+                        android:text='@{lang.equals("ar")?settingmodel.name_ar:settingmodel.name_en}'
                         android:textColor="@color/black"
                         android:textSize="18sp" />
                 </LinearLayout>

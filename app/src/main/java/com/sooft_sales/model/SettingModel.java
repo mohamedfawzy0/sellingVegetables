@@ -13,7 +13,7 @@ public class SettingModel extends StatusResponse implements Serializable {
     private String logo;
     private String sale_text;
     private double tax_val;
-
+    private byte[] imageBitmap;
     public int getId() {
         return id;
     }
@@ -52,5 +52,13 @@ public class SettingModel extends StatusResponse implements Serializable {
 
     public double getTax_val() {
         return tax_val;
+    }
+
+    public byte[] getImageBitmap() {
+        return imageBitmap;
+    }
+
+    public void setImageBitmap(byte[] imageBitmap) {
+        this.imageBitmap = imageBitmap;
     }
 }
