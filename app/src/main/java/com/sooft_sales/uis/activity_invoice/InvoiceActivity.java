@@ -147,7 +147,7 @@ public class InvoiceActivity extends AppCompatActivity {
                 // Print a text
 
                 // Print an image
-                printMe.sendViewToPrinter(binding.scrollView);
+                printMe.sendViewToPrinter(binding.scrollView.getRootView());
             }
         });
         updateData();
